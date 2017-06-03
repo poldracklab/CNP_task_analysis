@@ -1,0 +1,5 @@
+data/
+extra/
+*.pyc
+script.sh
+.sync-config.cson
