@@ -40,6 +40,10 @@ RUN curl -sSLO https://repo.continuum.io/miniconda/Miniconda${PYTHON_VERSION_MAJ
     bash Miniconda${PYTHON_VERSION_MAJOR}-4.2.12-Linux-x86_64.sh -b -p /usr/local/miniconda && \
     rm Miniconda${PYTHON_VERSION_MAJOR}-4.2.12-Linux-x86_64.sh
 
+RUN mkdir /code/
+RUN curl -sSL https://github.com/nipy/nipype/archive/0.13.1.tar.gz \
+    | tar -v -C  /code/ -xz
+
 ENV PATH=/usr/local/miniconda/bin:$PATH \
     LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
@@ -72,23 +76,23 @@ RUN sed -i 's/\(backend *: \).*$/\1Agg/g' /usr/local/miniconda/lib/python${PYTHO
     python -c "from matplotlib import font_manager"
 
 # Install CI scripts
-COPY docker/run_* /usr/bin/
+RUN cp /code/nipype-0.13.1/docker/files/run_* /usr/bin/
 RUN chmod +x /usr/bin/run_*
 
 # Replace imglob with a Python3 compatible version
-COPY nipype/external/fsl_imglob.py /usr/bin/fsl_imglob.py
+RUN cp /code/nipype-0.13.1/nipype/external/fsl_imglob.py /usr/bin/fsl_imglob.py
 RUN rm -rf ${FSLDIR}/bin/imglob && \
     chmod +x /usr/bin/fsl_imglob.py && \
     ln -s /usr/bin/fsl_imglob.py ${FSLDIR}/bin/imglob
 
 # Installing dev requirements (packages that are not in pypi)
 WORKDIR /src/
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt && \
+RUN cp /code/nipype-0.13.1/requirements.txt /src/requirements.txt
+RUN pip install -r /src/requirements.txt && \
     rm -rf ~/.cache/pip
 
 # Installing nipype
-COPY . /src/nipype
+RUN cp -r /code/nipype-0.13.1/ /src/nipype/
 RUN cd /src/nipype && \
     pip install -e .[all] && \
     rm -rf ~/.cache/pip
