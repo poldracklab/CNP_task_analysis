@@ -10,6 +10,6 @@ if os.path.exists(jobsfile):
 subjects = [x for x in os.listdir(bids) if 'sub-' in x]
 
 for subject in subjects:
-    cmd = "singularity exec $SINGULARITY python -s $HOMEDIR/CNP_analysis.py --subject=%s"%subject
+    cmd = "singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_analysis.py --subject=%s"%subject
     with open(jobsfile,'a') as f:
         f.write(cmd+"\n")

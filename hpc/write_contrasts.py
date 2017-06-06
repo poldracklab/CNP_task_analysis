@@ -1,7 +1,11 @@
-import json
-from ..utils import utils
-import os
 import numpy as np
+import json
+import sys
+import os
+
+sys.path.append(os.path.join(os.environ.get('HOMEDIR')))
+
+from utils import utils
 
 results = {}
 for task in ['stopsignal', 'taskswitch', 'scap', 'bart', 'pamret']:
