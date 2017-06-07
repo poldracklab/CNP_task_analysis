@@ -40,7 +40,7 @@ def create_ev_task(eventsfile,eventsdir,task):
     if task == 'pamret':
 
         nEV=9
-        ortho = {x: {y:0 for y in range(nEV)} for x in range(nEV)}
+        ortho = {x: {y:0 for y in range(1,nEV+1)} for x in range(1,nEV+1)}
 
         truepos_table = events[(events.trial_type=='CORRECTLY') & ((events.response_str=='MAYBE_CORRECT') | (events.response_str=="SURE_CORRECT"))]
         EVfiles.append(create_ev(truepos_table, out_name="TRUEPOS", duration=3, amplitude=1, out_dir=eventsdir))
@@ -73,7 +73,7 @@ def create_ev_task(eventsfile,eventsdir,task):
     if task == 'bart':
 
         nEV=9
-        ortho = {x: {y:0 for y in range(nEV)} for x in range(nEV)}
+        ortho = {x: {y:0 for y in range(1,nEV+1)} for x in range(1,nEV+1)}
 
         accept_table = events[(events.trial_type=="BALOON") & (events.action=="ACCEPT")]
         EVfiles.append(create_ev(accept_table, out_name="ACCEPT", duration=1, amplitude=1, out_dir=eventsdir))
@@ -102,7 +102,7 @@ def create_ev_task(eventsfile,eventsdir,task):
     if task == 'scap':
 
         nEV=25
-        ortho = {x: {y:0 for y in range(nEV)} for x in range(nEV)}
+        ortho = {x: {y:0 for y in range(1,nEV+1)} for x in range(1,nEV+1)}
 
         for load in [1,3,5,7]:
             for delay in [1.5,3,4.5]:
@@ -122,7 +122,7 @@ def create_ev_task(eventsfile,eventsdir,task):
     if task == 'stopsignal':
 
         nEV=6
-        ortho = {x: {y:0 for y in range(nEV)} for x in range(nEV)}
+        ortho = {x: {y:0 for y in range(1,nEV+1)} for x in range(1,nEV+1)}
 
         go_table = events[(events.TrialOutcome=="SuccessfulGo")]
         EVfiles.append(create_ev(go_table, out_name="GO", duration=1, amplitude=1, out_dir=eventsdir))
@@ -148,7 +148,7 @@ def create_ev_task(eventsfile,eventsdir,task):
     if task == 'taskswitch':
         nEV=16
 
-        ortho = {x: {y:0 for y in range(nEV)} for x in range(nEV)}
+        ortho = {x: {y:0 for y in range(1,nEV+1)} for x in range(1,nEV+1)}
         for congruent in ["CONGRUENT","INCONGRUENT"]:
             for switch in ["SWITCH","NOSWITCH"]:
                 for CSI in ["SHORT","LONG"]:
@@ -399,7 +399,7 @@ def check_exceptions(SUBJECT,TASK):
     elif TASK == 'stopsignal':
         submis = ['sub-50010','sub-10527']
     elif TASK == 'bart':
-        submis = ['sub-50010']
+        submis = ['sub-50010','sub-50069']
 
     if SUBJECT in submis:
         gonogo = False
