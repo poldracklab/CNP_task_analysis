@@ -29,7 +29,7 @@ PREPDIR = os.environ.get("PREPDIR")
 OUTDIR = os.environ.get("RESUDIR")
 SUBJECT = args.subject
 
-for TASK in ['bart', 'pamret','stopsignal', 'taskswitch', 'scap']:
+for TASK in ['taskswitch', 'scap','stopsignal', 'bart', 'pamret']:
     bidssub = os.listdir(os.path.join(BIDSDIR, SUBJECT, 'func'))
     taskfiles = [x for x in bidssub if TASK in x]
     if len(taskfiles) == 0:  # if no files for this task are present: skip task
