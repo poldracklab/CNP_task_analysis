@@ -126,12 +126,13 @@ CNPgroup.run('MultiProc', plugin_args={'n_procs': 4})
 
 basedir = os.path.join(outcopedir,"cnp_group")
 randomise_cmd = 'randomise -i %s/copemerge/cope%i_merged.nii.gz -o %s/randomise -d %s/l2model/design.mat -t %s/l2model/design.con -c 3.1 -C 3.1 -m %s -n 10000 -T -x --uncorrp'%(basedir,contrast,basedir,basedir,basedir,groupmaskfile)
-os.popen(randomise_cmd).read()
+#os.popen(randomise_cmd).read()
 
 # remove unwanted files
 
 for analysis in ['flame1','OLS','randomise']:
     if analysis == "randomise":
+        # continue
         destdir = os.path.join(outcopedir,analysis)
         if not os.path.exists(destdir):
             os.mkdir(destdir)
