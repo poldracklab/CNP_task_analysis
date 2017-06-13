@@ -99,6 +99,8 @@ RUN cd /src/nipype && \
 
 WORKDIR /work/
 
+ENV LD_LIBRARY_PATH=/usr/lib/fsl/5.0:/usr/local/miniconda/lib/
+
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
