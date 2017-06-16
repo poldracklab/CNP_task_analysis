@@ -11,6 +11,7 @@
 #SBATCH --ntasks=1
 
 source /oak/stanford/groups/russpold/data/ds000030_R1.0.3_analysis_0.4.4_code/config.sh
+# module load singularity
 
 unset PYTHONPATH
 
@@ -24,6 +25,6 @@ cd $HOMEDIR
 
 set -e
 
-eval $( sed "${SLURM_ARRAY_TASK_ID}q;d" hpc/tasks.txt )
+eval $( sed "${SLURM_ARRAY_TASK_ID}q;d" $HOMEDIR/hpc/tasks.txt )
 
 echo "༼ つ ◕_◕ ༽つ CNP modeling pipeline finished"
