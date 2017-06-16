@@ -1,9 +1,8 @@
 from nilearn import plotting
-import matplotlib.pyplot as plt
-import matplotlib.patches as mp
-import os
+import nibabel as nib
+import numpy as np
 import json
-from matplotlib.colors import LinearSegmentedColormap
+import os
 
 groupdir = os.environ.get("GROUPDIR")
 homedir = os.environ.get("HOMEDIR")
@@ -21,23 +20,37 @@ papershow = {'bart':[1,3,5,9,13],
              'pamret':[1,3,27,31]
              }
 
+samplesizes = {'bart':259,
+             'scap':244,
+             'stopsignal':255,
+             'taskswitch':254,
+             'pamret':197
+             }
+
 for task in ['stopsignal', 'taskswitch', 'scap', 'bart', 'pamret']:
     for contrast in papershow[task]:
+        print("task: %s - contrast: %s"%(task,str(contrast)))
 
         # task = 'pamret'
         # contrast = 1
         contrastname = contrasts[task][contrast-1]
 
         MNItemplate = os.path.join(os.environ.get('FSLDIR'),'data/standard/MNI152_T1_0.5mm.nii.gz')
-        flame_z = os.path.join(groupdir,task,'cope%i'%contrast,'OLS/zstat1.nii.gz')
+        rand_t = os.path.join(groupdir,task,'cope%i'%contrast,'randomise/randomise_tstat1.nii.gz')
         acm = os.path.join(acmdir,task,"zstat%i_ACM_diff.nii.gz"%contrast)
         acm_neg = os.path.join(acmdir,task,"zstat%i_ACM_neg.nii.gz"%contrast)
 
-        title = "%s - %s"%(task,contrastname)
-        outfile = os.path.join(figdir,"%s_%i_z.pdf"%(task,contrast))
-        plotting.plot_glass_brain(flame_z,colorbar=True,cmap="RdYlBu_r",title=title,plot_abs=False,vmin=-15,vmax=15,output_file=outfile)
-        outfile = os.path.join(figdir,"%s_%i_acm.pdf"%(task,contrast))
+        tval = nib.load(rand_t).get_data()
+        ss = samplesizes[task]
+        cohen = tval/np.sqrt(ss)
+        CD = nib.Nifti1Image(cohen,affine=nib.load(rand_t).get_affine(),header=nib.load(rand_t).get_header())
+
+        title = "%s"%(contrastname)
+        outfile = os.path.join(figdir,"%s_%s_z.pdf"%(task,contrastname))
+        plotting.plot_glass_brain(rand_t,colorbar=True,cmap="RdYlBu_r",title=title,plot_abs=False,vmin=-10,vmax=10,output_file=outfile)
+        outfile = os.path.join(figdir,"%s_%s_acm.pdf"%(task,contrastname))
         plotting.plot_glass_brain(acm,colorbar=True,cmap='PRGn',title=title,plot_abs=False,vmin=-1,vmax=1,output_file=outfile)
-
-
-        #plotting.plot_stat_map(flame_z,bg_img=MNItemplate,colorbar=True,cmap="RdYlBu_r",title=title,threshold=2.3,cut_coords=[40,0,0])
+        outfile = os.path.join(figdir,"%s_%s_cd.pdf"%(task,contrastname))
+        plotting.plot_glass_brain(CD,colorbar=True,cmap='BrBG',title=title,plot_abs=False,vmin=-1,vmax=1,output_file=outfile)
+        outfile = os.path.join(figdir,"slices_%s_%s.pdf"%(task,contrastname))
+        plotting.plot_stat_map(rand_t,threshold=3.1,display_mode='z',cut_coords=8,dim=-0.2,output_file=outfile)
