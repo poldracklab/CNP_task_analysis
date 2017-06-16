@@ -18,6 +18,8 @@ export GROUPDIR=/oak/stanford/groups/russpold/data/ds000030_R1.0.3_preprocessed_
 export ACMDIR=/oak/stanford/groups/russpold/data/ds000030_R1.0.3_preprocessed_0.4.4/task_acm/
 # location of figures
 export FIGDIR=/oak/stanford/groups/russpold/data/ds000030_R1.0.3_preprocessed_0.4.4/task_figures/
+# location of contrasts (to write maps for neurovault)
+export CONDIR=/oak/stanford/groups/russpold/data/ds000030_R1.0.3_preprocessed_0.4.4/conmaps/
 
 ## CODE
 
@@ -26,4 +28,4 @@ export HOMEDIR=/oak/stanford/groups/russpold/data/ds000030_R1.0.3_analysis_0.4.4
 
 ## SINGULARITY CONTAINER
 
-export SINGULARITY=$SCRATCH/CNP/poldracklab_cnp_task_analysis-2017-06-03-1246c19080c1.img
+export SINGULARITY=$SCRATCH/poldracklab_cnp_task_analysis-2017-06-13-8a9da76ec6c3.img
