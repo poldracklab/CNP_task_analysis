@@ -11,7 +11,7 @@ The analyses have been run in a [singularity](http://singularity.lbl.gov/) conta
 On a machine that has docker installed, the singularity container can be obtained by running:
 
 ```
-docker run -v /var/run/docker.sock:/var/run/docker.sock -v /local:/output --privileged -t --rm singularityware/docker2singularity poldracklab/cnp_task_analysis
+docker run -v /var/run/docker.sock:/var/run/docker.sock -v /local:/output --privileged -t --rm singularityware/docker2singularity poldracklab/cnp_task_analysis:1.0
 ```
 
 After running this command, the singularity container can be found in the `/local` folder on the local machine.
