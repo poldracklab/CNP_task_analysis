@@ -125,14 +125,17 @@ CNPgroup.run('MultiProc', plugin_args={'n_procs': 4})
 # manual randomise
 
 basedir = os.path.join(outcopedir,"cnp_group")
-randomise_cmd = 'randomise -i %s/copemerge/cope%i_merged.nii.gz -o %s/randomise -d %s/l2model/design.mat -t %s/l2model/design.con -c 3.1 -C 3.1 -m %s -n 10000 -T -x --uncorrp'%(basedir,contrast,basedir,basedir,basedir,groupmaskfile)
-#os.popen(randomise_cmd).read()
+randdir = os.path.join(basedir,'randomise')
+if not os.path.exists(randdir):
+    os.mkdir(randdir)
+
+randomise_cmd = 'randomise -i %s/copemerge/cope%i_merged.nii.gz -o %s/randomise -d %s/l2model/design.mat -t %s/l2model/design.con -c 3.1 -C 3.1 -m %s -n 100 -T -x --uncorrp'%(basedir,contrast,basedir,basedir,basedir,groupmaskfile)
+os.popen(randomise_cmd).read()
 
 # remove unwanted files
 
 for analysis in ['flame1','OLS','randomise']:
     if analysis == "randomise":
-        # continue
         destdir = os.path.join(outcopedir,analysis)
         if not os.path.exists(destdir):
             os.mkdir(destdir)
@@ -181,6 +184,9 @@ for analysis in ['flame1','OLS']:
 
 #### randomise
 destdir = os.path.join(outcopedir,"randomise")
+if not os.path.exists(destdir):
+    os.mkdir(destdir)
+
 os.chdir(destdir)
 fdrcmd = 'fdr -i randomise_vox_p_tstat1 --oneminusp -m %s -q 0.05 --othresh=thresh_vox_fdr_pstat1'%(groupmaskfile)
 os.popen(fdrcmd).read()
