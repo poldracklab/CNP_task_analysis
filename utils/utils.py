@@ -143,7 +143,7 @@ def create_ev_task(eventsfile,eventsdir,task):
 
         stop_unsuccess_table = events[(events.TrialOutcome=="UnsuccessfulStop")]
         EVfiles.append(create_ev(stop_unsuccess_table, out_name="STOP_UNSUCCESS", duration=1, amplitude=1, out_dir=eventsdir))
-        EVfiles.append(create_ev(stop_success_table, out_name="STOP_UNSUCCESS_rt", duration='ReactionTime', amplitude=1, out_dir=eventsdir))
+        EVfiles.append(create_ev(stop_unsuccess_table, out_name="STOP_UNSUCCESS_rt", duration='ReactionTime', amplitude=1, out_dir=eventsdir))
         ortho[len(EVfiles)][len(EVfiles)-1]=1
         ortho[len(EVfiles)][0]=1
 
