@@ -129,7 +129,7 @@ randdir = os.path.join(basedir,'randomise')
 if not os.path.exists(randdir):
     os.mkdir(randdir)
 
-randomise_cmd = 'randomise -i %s/copemerge/cope%i_merged.nii.gz -o %s/randomise -d %s/l2model/design.mat -t %s/l2model/design.con -c 3.1 -C 3.1 -m %s -n 100 -T -x --uncorrp'%(basedir,contrast,basedir,basedir,basedir,groupmaskfile)
+randomise_cmd = 'randomise -i %s/copemerge/cope%i_merged.nii.gz -o %s/randomise -d %s/l2model/design.mat -t %s/l2model/design.con -c 3.1 -C 3.1 -m %s -n 10000 -T -x --uncorrp'%(basedir,contrast,basedir,basedir,basedir,groupmaskfile)
 os.popen(randomise_cmd).read()
 
 # remove unwanted files
