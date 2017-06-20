@@ -39,6 +39,7 @@ The data is assumed to be structured in [BIDS](bids.neuroimaging.io) format and 
 |                                   (called by 01_prepare.sh)
 +-- utils/
 |    +-- utils.py                   Functions used in first level analyses.
+|    +-- rename_copes.py            Script to rename and collect the tmaps for neurovault.
 |
 +-- CNP_analysis.py                 Program to run first level analysis on 1 subject.
 +-- CNP_2nd_level.py                Program to run group level analysis on 1 contrast
