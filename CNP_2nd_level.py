@@ -5,14 +5,17 @@ import argparse
 from nipype.interfaces import fsl
 from nipype.pipeline.engine import Workflow, Node, MapNode
 import shutil
-
-featdir = os.environ.get("RESUDIR")
-outdir = os.environ.get("GROUPDIR")
+from utils import get_config
 
 parser = argparse.ArgumentParser(description='Perform analysis on CNP task data')
 parser.add_argument('-task','--task',dest='task',help='task name',required=True)
 parser.add_argument('-contrast','--contrast',dest='contrast',help='contrast number',required=True)
+parser.add_argument('-prep_pipeline','--prep_pipeline',dest='prep_pipeline',help='preprocessing pipeline',required=True)
 args = parser.parse_args()
+
+cf = get_config.get_folders(args.prep_pipeline)
+featdir = cf['resdir']
+outdir = cf['groupdir']
 
 task = args.task
 contrast = int(args.contrast)
@@ -28,12 +31,13 @@ if not os.path.exists(outtaskdir):
 groupmaskfile = os.path.join(outtaskdir,"mask.nii.gz")
 
 if not os.path.exists(groupmaskfile):
-    prepdir = os.environ.get("PREPDIR")
+    prepdir = os.environ.get("PREPBASEDIR")
     subjects = [x for x in os.listdir(featdir) if x[-4:]!='html' and x[:4]=='sub-']
     mask = np.zeros([65,77,49,len(subjects)])
     k=0
     for subject in subjects:
-        maskfile = os.path.join(prepdir,subject,'func',subject+"_task-"+task+"_bold_space-MNI152NLin2009cAsym_brainmask.nii.gz")
+        cf_files = get_config.get_files(prep_pipeline,subject,TASK)
+        maskfile = cf_files['mask']
         if os.path.exists(maskfile):
             masksub = nib.load(maskfile)
             data = masksub.get_data()

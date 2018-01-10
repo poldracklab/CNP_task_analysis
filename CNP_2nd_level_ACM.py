@@ -1,3 +1,4 @@
+from utils import get_config
 import nibabel as nib
 import numpy as np
 import argparse
@@ -7,14 +8,18 @@ import os
 
 parser = argparse.ArgumentParser(description='Perform analysis on CNP task data')
 parser.add_argument('-task','--task',dest='task',help='task name',required=True)
+parser.add_argument('-prep_pipeline','--prep_pipeline',dest='prep_pipeline',help='preprocessing pipeline',required=True)
+
 args = parser.parse_args()
 
 task = args.task
 
-featdir = os.environ.get("RESUDIR")
-outdir = os.environ.get("GROUPDIR")
+cf = get_config.get_folders(args.prep_pipeline)
+featdir = cf['resdir']
+outdir = cf['groupdir']
+acmdir = cf['acmdir']
+
 homedir = os.environ.get("HOMEDIR")
-acmdir = os.environ.get("ACMDIR")
 
 contrastfile = os.path.join(homedir,"utils/contrasts.json")
 

@@ -6,8 +6,8 @@ from nipype.interfaces.utility.base import IdentityInterface
 from nipype.pipeline.engine import Workflow, Node, MapNode
 from nipype.interfaces.io import SelectFiles, DataSink
 from nipype.algorithms.modelgen import SpecifyModel
+from utils import utils, get_config
 from nipype.interfaces import afni
-from utils import utils
 import nibabel as nib
 import pandas as pd
 import numpy as np
@@ -20,16 +20,20 @@ parser = argparse.ArgumentParser(
     description='Perform analysis on CNP task data')
 parser.add_argument('-subject', '--subject', dest='subject',
                     help='subject label', required=True)
+parser.add_argument('-prep_pipeline','--prep_pipeline',dest='prep_pipeline',
+                    help='preprocessing pipeline (fmriprep or feat)', required=True)
 args = parser.parse_args()
 
 # INPUT FILES AND FOLDERS
 
 BIDSDIR = os.environ.get('BIDSDIR')
-PREPDIR = os.environ.get("PREPDIR")
-OUTDIR = os.environ.get("RESUDIR")
 SUBJECT = args.subject
 
+cf = get_config.get_folders(args.prep_pipeline)
+
 for TASK in ['taskswitch', 'scap','stopsignal', 'bart', 'pamret']:
+    cf_files = get_config.get_files(prep_pipeline,subject,TASK)
+
     bidssub = os.listdir(os.path.join(BIDSDIR, SUBJECT, 'func'))
     taskfiles = [x for x in bidssub if TASK in x]
     if len(taskfiles) == 0:  # if no files for this task are present: skip task
@@ -40,14 +44,14 @@ for TASK in ['taskswitch', 'scap','stopsignal', 'bart', 'pamret']:
 
     # CREATE OUTPUT DIRECTORIES
 
-    subdir = os.path.join(OUTDIR, SUBJECT)
+    subdir = os.path.join(cf['resdir'], SUBJECT)
     if not os.path.exists(subdir):
         os.mkdir(subdir)
 
     if os.path.exists(os.path.join(subdir, '%s.feat' % TASK)):
         continue
 
-    taskdir = os.path.join(OUTDIR, SUBJECT, TASK)
+    taskdir = os.path.join(cf['resdir'], SUBJECT, TASK)
     if not os.path.exists(taskdir):
         os.mkdir(taskdir)
 
@@ -58,13 +62,14 @@ for TASK in ['taskswitch', 'scap','stopsignal', 'bart', 'pamret']:
     os.chdir(taskdir)
 
     # GENERATE TASK REGRESSORS, CONTRASTS + CONFOUNDERS
-
-    confounds_infile = os.path.join(
-        PREPDIR, SUBJECT, 'func', SUBJECT + "_task-" + TASK + '_bold_confounds.tsv')
-    confounds_in = pd.read_csv(confounds_infile, sep="\t")
-    confounds_in = confounds_in[['stdDVARS', 'non-stdDVARS', 'vx-wisestdDVARS',
-                                 'FramewiseDisplacement', 'X', 'Y', 'Z', 'RotX', 'RotY', 'RotZ']]
-    confoundsfile = utils.create_confounds(confounds_in, eventsdir)
+    if prep_pipeline == 'fmriprep':
+        confounds_infile = cf_files.confoundsfile
+        confounds_in = pd.read_csv(confounds_infile, sep="\t")
+        confounds_in = confounds_in[['stdDVARS', 'non-stdDVARS', 'vx-wisestdDVARS',
+                                     'FramewiseDisplacement', 'X', 'Y', 'Z', 'RotX', 'RotY', 'RotZ']]
+        confoundsfile = utils.create_confounds(confounds_in, eventsdir)
+    else:
+        confoundsfile = cf_files.con
 
     eventsfile = os.path.join(BIDSDIR, SUBJECT, 'func',
                               SUBJECT + "_task-" + TASK + '_events.tsv')
@@ -77,19 +82,14 @@ for TASK in ['taskswitch', 'scap','stopsignal', 'bart', 'pamret']:
     # START PIPELINE
 
     masker = Node(maths.ApplyMask(
-        in_file=os.path.join(PREPDIR, SUBJECT, "func", SUBJECT + "_task-" +
-                             TASK + "_bold_space-MNI152NLin2009cAsym_preproc.nii.gz"),
-        out_file=os.path.join(taskdir, SUBJECT + "_task-" + TASK +
-                              "_bold_space-MNI152NLin2009cAsym_preproc_masked.nii.gz"),
-        mask_file=os.path.join(PREPDIR, SUBJECT, "func", SUBJECT + "_task-" +
-                               TASK + "_bold_space-MNI152NLin2009cAsym_brainmask.nii.gz")
+        in_file=cf_files['bold'],
+        out_file=cf_files['masked'],
+        mask_file=cf_files['mask']
     ), name='masker')
 
     bim = Node(afni.BlurInMask(
-        mask=os.path.join(PREPDIR, SUBJECT, "func", SUBJECT + "_task-" +
-                          TASK + "_bold_space-MNI152NLin2009cAsym_brainmask.nii.gz"),
-        out_file=os.path.join(taskdir, SUBJECT + "_task-" + TASK +
-                              "_bold_space-MNI152NLin2009cAsym_preproc_smooth.nii.gz"),
+        mask=cf_files['mask'],
+        out_file=cf_files['smoothed'],
         fwhm=5.0
     ), name='bim')
 

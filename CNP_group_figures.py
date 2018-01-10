@@ -4,10 +4,17 @@ import numpy as np
 import json
 import os
 
-groupdir = os.environ.get("GROUPDIR")
+parser = argparse.ArgumentParser(description='Perform analysis on CNP task data')
+parser.add_argument('-prep_pipeline','--prep_pipeline',dest='prep_pipeline',help='preprocessing pipeline',required=True)
+
+args = parser.parse_args()
+
+cf = get_config.get_folders(args.prep_pipeline)
+groupdir = cf['groupdir']
+acmdir = cf['acmdir']
+figdir = cf['figdir']
+
 homedir = os.environ.get("HOMEDIR")
-acmdir = os.environ.get("ACMDIR")
-figdir = os.environ.get("FIGDIR")
 
 contrastfile = os.path.join(homedir,"utils/contrasts.json")
 with open(contrastfile) as fl:
