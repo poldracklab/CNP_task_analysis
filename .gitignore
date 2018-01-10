@@ -3,3 +3,4 @@ extra/
 *.pyc
 script.sh
 .sync-config.cson
+*fisher_z_4_maps_stop_minus_go.nii.gz
