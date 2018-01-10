@@ -10,13 +10,13 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --ntasks=1
 
-source /oak/stanford/groups/russpold/data/ds000030_R1.0.3_analysis_0.4.4_code/config.sh
+source $HOME/CNP_analysis/config.sh
 
 unset PYTHONPATH
 
 set -e
 
-singularity exec -B $OAK:$OAK $SINGULARITY echo "Analyis '${SLURM_ARRAY_TASK_ID}' started"
+singularity exec -B $OAK:$OAK $SINGULARITY echo "Analyis started"
 singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/hpc/write_contrasts.py
 singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/hpc/write_group_tasks.py
 singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/hpc/write_tasks.py
