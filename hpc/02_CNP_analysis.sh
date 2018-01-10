@@ -1,8 +1,7 @@
 #!/bin/bash
 #SBATCH --time=5:00:00
 #SBATCH --mem=4GB
-##SBATCH --qos=russpold
-##SBATCH -p russpold
+#SBATCH -p hns,normal
 #SBATCH --output=logs/CNP.%a.txt
 #SBATCH --error=logs/CNP.%a.txt
 #SBATCH --mail-type=ALL
@@ -10,7 +9,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --ntasks=1
 
-source /oak/stanford/groups/russpold/data/ds000030_R1.0.3_analysis_0.4.4_code/config.sh
+source $HOME/CNP_analysis/config.sh
 # module load singularity
 
 unset PYTHONPATH
