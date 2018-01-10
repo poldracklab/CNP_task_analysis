@@ -11,12 +11,12 @@ contrastfile = os.path.join(os.environ.get('HOMEDIR'),"utils/contrasts.json")
 with open(contrastfile) as fl:
     contrasts = json.load(fl)
 
-tasks = ['stopsignal', 'taskswitch','bart', 'pamret','scap']
+tasks = ['stopsignal']
 contrasts = [len(contrasts[x]) for x in tasks]
 
 firsts = []
 k = 0
-for prep_pipeline in ['fmriprep','feat']:
+for prep_pipeline in ['fmriprep-1.0.3','fslfeat_5.0.9']:
     for idx,task in enumerate(tasks):
         for con in range(contrasts[idx]):
             k+=1
