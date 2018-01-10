@@ -1,14 +1,11 @@
 import sys
 import os
 
-# NOTE:
-# This is assuming that the files are in $PREPBASEDIR/fmriprep and $PREPBASEDIR/feat
-
 def get_folders(prep_pipeline):
     basedir = os.path.join(os.environ.get("PREPBASEDIR"),'fmriprep_vs_feat',prep_pipeline)
     if not os.path.exists(basedir):
         os.mkdir(basedir)
-    
+
     cf = {
         'prepdir':os.path.join(os.environ.get('PREPBASEDIR'),prep_pipeline),
         'resdir':os.path.join(basedir,'task'),
