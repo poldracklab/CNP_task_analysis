@@ -8,8 +8,7 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --ntasks=1
 
-source /oak/stanford/groups/russpold/data/ds000030_R1.0.3_analysis_0.4.4_code/config.sh
-module load singularity
+source $HOME/CNP_analysis/config.sh
 
 unset PYTHONPATH
 
@@ -17,17 +16,14 @@ if [ ! -f $SINGULARITY ]; then
     echo "Singularity container for analyses not found!  Please first create singularity container."
 fi
 
-singularity exec $SINGULARITY echo "Analyis '${SLURM_ARRAY_TASK_ID}' started"
+singularity exec $SINGULARITY echo "Analyis started"
 
 cd $HOMEDIR
 
 set -e
 
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level_ACM.py --task=scap & \
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level_ACM.py --task=taskswitch & \
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level_ACM.py --task=stopsignal & \
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level_ACM.py --task=pamret & \
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level_ACM.py --task=bart & \
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level_ACM.py --task=stopsignal  --prep_pipeline=fmriprep-1.0.3 & \
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level_ACM.py --task=stopsignal  --prep_pipeline=fslfeat_5.0.9 & \
 
 wait
 
