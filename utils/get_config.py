@@ -5,31 +5,41 @@ import os
 # This is assuming that the files are in $PREPBASEDIR/fmriprep and $PREPBASEDIR/feat
 
 def get_folders(prep_pipeline):
+    basedir = os.path.join(os.environ.get("PREPBASEDIR"),'fmriprep_vs_feat',prep_pipeline)
+    if not os.path.exists(basedir):
+        os.mkdir(basedir)
+    
     cf = {
         'prepdir':os.path.join(os.environ.get('PREPBASEDIR'),prep_pipeline),
-        'resdir':os.path.join(os.environ.get("PREPBASEDIR"),prep_pipeline,'derivatives','task'),
-        'groupdir':os.path.join(os.environ.get("PREPBASEDIR"),prep_pipeline,'derivatives','task_group'),
-        'acmdir':os.path.join(os.environ.get("PREPBASEDIR"),prep_pipeline,'derivatives','task_acm'),
-        'figdir':os.path.join(os.environ.get("PREPBASEDIR"),prep_pipeline,'derivatives','task_figures'),
-        'condir':os.path.join(os.environ.get("PREPBASEDIR"),prep_pipeline,'derivatives','conmaps')
+        'resdir':os.path.join(basedir,'task'),
+        'groupdir':os.path.join(basedir,'task_group'),
+        'acmdir':os.path.join(basedir,'task_acm'),
+        'figdir':os.path.join(basedir,'task_figures'),
+        'condir':os.path.join(basedir,'conmaps')
     }
+
+    for k,v in cf.iteritems():
+        if not os.path.exists(v):
+            os.mkdir(v)
+
     return cf
 
 def get_files(prep_pipeline,SUBJECT,TASK):
-    if prep_pipeline == 'fmriprep':
+    folders = get_folders(prep_pipeline)
+    if prep_pipeline.startswith('fmriprep'):
         cf = {
-            'bold':os.path.join(os.environ.get("PREPBASEDIR"),prep_pipeline, SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_preproc.nii.gz"),
-            'masked':os.path.join(os.environ.get("PREPBASEDIR"),prep_pipeline, SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_preproc_masked.nii.gz"),
-            'mask':os.path.join(os.environ.get("PREPBASEDIR"),prep_pipeline, SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_brainmask.nii.gz"),
-            'smoothed':os.path.join(os.environ.get("PREPBASEDIR"),prep_pipeline, SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_smooth.nii.gz"),
-            'confoundsfile': os.path.join(os.environ.get('PREPBASEDIR'),prep_pipeline, SUBJECT, 'func', SUBJECT + "_task-" + TASK + '_bold_confounds.tsv')
+            'bold':os.path.join(folders['prepdir'],'fmriprep', SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_preproc.nii.gz"),
+            'masked':os.path.join(folders['prepdir'],'fmriprep',  SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_preproc_masked.nii.gz"),
+            'mask':os.path.join(folders['prepdir'],'fmriprep',  SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_brainmask.nii.gz"),
+            'smoothed':os.path.join(folders['prepdir'],'fmriprep',  SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_smooth.nii.gz"),
+            'confoundsfile': os.path.join(folders['prepdir'],'fmriprep',  SUBJECT, 'func', SUBJECT + "_task-" + TASK + '_bold_confounds.tsv')
         }
     else:
         cf = {
-            'bold':,
-            'masked':,
-            'mask':,
-            'smoothed':,
-            'confoundsfile':
+            'bold':os.path.join(folders['prepdir'],"%s.feat"%SUBJECT,'filtered_func_data.nii.gz'),
+            'masked':os.path.join(folders['resdir'],SUBJECT,'filtered_func_masked.nii.gz'),
+            'mask':os.path.join(folders['prepdir'],"%s.feat"%SUBJECT,'mask.nii.gz'),
+            'smoothed':os.path.join(folders['resdir'],SUBJECT,'filtered_func_smoothed.nii.gz'),
+            'confoundsfile':os.path.join(folders['prepdir'],"%s.feat"%SUBJECT,'mc','prefiltered_func_data_mcf.par')
         }
     return cf
