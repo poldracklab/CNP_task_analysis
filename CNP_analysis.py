@@ -31,8 +31,8 @@ SUBJECT = args.subject
 
 cf = get_config.get_folders(args.prep_pipeline)
 
-for TASK in ['taskswitch', 'scap','stopsignal', 'bart', 'pamret']:
-    cf_files = get_config.get_files(prep_pipeline,subject,TASK)
+for TASK in ['stopsignal']:
+    cf_files = get_config.get_files(args.prep_pipeline,SUBJECT,TASK)
 
     bidssub = os.listdir(os.path.join(BIDSDIR, SUBJECT, 'func'))
     taskfiles = [x for x in bidssub if TASK in x]
@@ -43,6 +43,8 @@ for TASK in ['taskswitch', 'scap','stopsignal', 'bart', 'pamret']:
         continue
 
     # CREATE OUTPUT DIRECTORIES
+    if not os.path.exists(cf['resdir']):
+        os.mkdir(cf['resdir'])
 
     subdir = os.path.join(cf['resdir'], SUBJECT)
     if not os.path.exists(subdir):
@@ -62,14 +64,14 @@ for TASK in ['taskswitch', 'scap','stopsignal', 'bart', 'pamret']:
     os.chdir(taskdir)
 
     # GENERATE TASK REGRESSORS, CONTRASTS + CONFOUNDERS
-    if prep_pipeline == 'fmriprep':
-        confounds_infile = cf_files.confoundsfile
+    if args.prep_pipeline.startswith('fmriprep'):
+        confounds_infile = cf_files['confoundsfile']
         confounds_in = pd.read_csv(confounds_infile, sep="\t")
         confounds_in = confounds_in[['stdDVARS', 'non-stdDVARS', 'vx-wisestdDVARS',
                                      'FramewiseDisplacement', 'X', 'Y', 'Z', 'RotX', 'RotY', 'RotZ']]
         confoundsfile = utils.create_confounds(confounds_in, eventsdir)
     else:
-        confoundsfile = cf_files.con
+        confoundsfile = cf_files['confoundsfile']
 
     eventsfile = os.path.join(BIDSDIR, SUBJECT, 'func',
                               SUBJECT + "_task-" + TASK + '_events.tsv')
@@ -87,10 +89,16 @@ for TASK in ['taskswitch', 'scap','stopsignal', 'bart', 'pamret']:
         mask_file=cf_files['mask']
     ), name='masker')
 
+    bandpass = Node(afni.Bandpass(
+        highpass = 0.01,
+        lowpass = 1,
+        outputtype = "NIFTI_GZ"
+        ), name = 'afni_bandpass')
+
     bim = Node(afni.BlurInMask(
         mask=cf_files['mask'],
         out_file=cf_files['smoothed'],
-        fwhm=5.0
+        fwhm=8.0
     ), name='bim')
 
     l1 = Node(SpecifyModel(
@@ -115,7 +123,8 @@ for TASK in ['taskswitch', 'scap','stopsignal', 'bart', 'pamret']:
 
     CNPflow = Workflow(name='cnp')
     CNPflow.base_dir = taskdir
-    CNPflow.connect([(masker, bim, [('out_file', 'in_file')]),
+    CNPflow.connect([(masker, bandpass, [('out_file', 'in_file')]),
+                     (bandpass, bim, [('out_file', 'in_file')]),
                      (bim, l1, [('out_file', 'functional_runs')]),
                      (l1, l1model, [('session_info', 'session_info')]),
                      (l1model, l1featmodel, [
