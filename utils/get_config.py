@@ -26,9 +26,9 @@ def get_files(prep_pipeline,SUBJECT,TASK):
     if prep_pipeline.startswith('fmriprep'):
         cf = {
             'bold':os.path.join(folders['prepdir'],'fmriprep', SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_preproc.nii.gz"),
-            'masked':os.path.join(folders['prepdir'],'fmriprep',  SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_preproc_masked.nii.gz"),
-            'mask':os.path.join(folders['prepdir'],'fmriprep',  SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_brainmask.nii.gz"),
-            'smoothed':os.path.join(folders['prepdir'],'fmriprep',  SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_smooth.nii.gz"),
+            'masked':os.path.join(folders['resdir'],SUBJECT,"preprocessed_masked.nii.gz"),
+            'standard_mask':os.path.join(folders['prepdir'],'fmriprep',  SUBJECT, "func", SUBJECT + "_task-" + TASK + "_bold_space-MNI152NLin2009cAsym_brainmask.nii.gz"),
+            'smoothed':os.path.join(folders['resdir'],SUBJECT,"preprocessed_smooth.nii.gz"),
             'confoundsfile': os.path.join(folders['prepdir'],'fmriprep',  SUBJECT, 'func', SUBJECT + "_task-" + TASK + '_bold_confounds.tsv')
         }
     else:
@@ -37,6 +37,9 @@ def get_files(prep_pipeline,SUBJECT,TASK):
             'masked':os.path.join(folders['resdir'],SUBJECT,'filtered_func_masked.nii.gz'),
             'mask':os.path.join(folders['prepdir'],"%s.feat"%SUBJECT,'mask.nii.gz'),
             'smoothed':os.path.join(folders['resdir'],SUBJECT,'filtered_func_smoothed.nii.gz'),
-            'confoundsfile':os.path.join(folders['prepdir'],"%s.feat"%SUBJECT,'mc','prefiltered_func_data_mcf.par')
+            'confoundsfile':os.path.join(folders['prepdir'],"%s.feat"%SUBJECT,'mc','prefiltered_func_data_mcf.par'),
+            'warpfile':os.path.join(folders['prepdir'],"%s.feat"%SUBJECT,'reg','example_func2standard_warp.nii.gz'),
+            'standard':os.path.join(folders['prepdir'],"%s.feat"%SUBJECT,'reg','standard.nii.gz'),
+            'standard_mask':os.path.join(folders['prepdir'],"%s.feat"%SUBJECT,'reg','standard_mask.nii.gz')
         }
     return cf

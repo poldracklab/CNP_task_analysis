@@ -6,7 +6,8 @@ import shutil
 def create_confounds(confounds_in,eventsdir):
 
     confounds = np.array(confounds_in)
-    confounds[confounds=='n/a']=0
+    if np.sum(confounds=='n/a')>0:
+        confounds[confounds=='n/a']=0
     confounds = confounds.astype(float)
     confoundsfile = os.path.join(eventsdir,'bold_confounds.tsv')
     np.savetxt(confoundsfile,np.array(confounds), '%5.3f')
