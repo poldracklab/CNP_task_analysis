@@ -23,6 +23,8 @@ homedir = os.environ.get("HOMEDIR")
 
 contrastfile = os.path.join(homedir,"utils/contrasts.json")
 
+dims = [65,77,49] if args.prep_pipeline.startswith('fmriprep') else [97,115,97]
+
 with open(contrastfile) as fl:
     contrasts = json.load(fl)
 
@@ -53,8 +55,8 @@ for contrast in range(len(contrasts[task])):
 
     zstats = [os.path.join(x,'stats','%s%i.nii.gz'%('zstat',contrast+1)) for x in featdirs]
 
-    ACM_pos = np.zeros([65,77,49,len(zstats)])
-    ACM_neg = np.zeros([65,77,49,len(zstats)])
+    ACM_pos = np.zeros(dims+[len(zstats)])
+    ACM_neg = np.zeros(dims+[len(zstats)])
     for idx,zstat in enumerate(zstats):
         zmap = nib.load(zstat).get_data()
         exceed = np.where(zmap>1.65)

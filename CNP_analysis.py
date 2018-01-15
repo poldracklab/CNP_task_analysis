@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from nipype.interfaces.fsl import model, FEATModel, FEAT, Level1Design, Smooth, maths
-from nipype.interfaces.utility.base import IdentityInterface
+from nipype.interfaces.fsl import model, FEATModel, FEAT, Level1Design, Smooth, maths, ApplyWarp
+from nipype.interfaces.utility import Function, IdentityInterface
 from nipype.pipeline.engine import Workflow, Node, MapNode
 from nipype.interfaces.io import SelectFiles, DataSink
 from nipype.algorithms.modelgen import SpecifyModel
@@ -15,6 +15,24 @@ import argparse
 import shutil
 import sys
 import os
+
+
+def _nilearnmask(in_file, mask_file):
+    import os
+    import numpy as np
+    import nibabel as nb
+    from nipype.utils.filemanip import fname_presuffix
+    from nilearn.image import resample_to_img
+    out_file = fname_presuffix(in_file, '_brain', newpath=os.getcwd())
+    out_mask = fname_presuffix(in_file, '_brainmask', newpath=os.getcwd())
+    newmask = resample_to_img(mask_file, in_file,
+                              interpolation='nearest')
+    newmask.to_filename(out_mask)
+    nii = nb.load(in_file)
+    data = nii.get_data() * newmask.get_data()[..., np.newaxis]
+    nii = nii.__class__(data, nii.affine, nii.header).to_filename(out_file)
+    return out_file, out_mask
+
 
 parser = argparse.ArgumentParser(
     description='Perform analysis on CNP task data')
@@ -67,8 +85,7 @@ for TASK in ['stopsignal']:
     if args.prep_pipeline.startswith('fmriprep'):
         confounds_infile = cf_files['confoundsfile']
         confounds_in = pd.read_csv(confounds_infile, sep="\t")
-        confounds_in = confounds_in[['stdDVARS', 'non-stdDVARS', 'vx-wisestdDVARS',
-                                     'FramewiseDisplacement', 'X', 'Y', 'Z', 'RotX', 'RotY', 'RotZ']]
+        confounds_in = confounds_in[['X', 'Y', 'Z', 'RotX', 'RotY', 'RotZ']]
         confoundsfile = utils.create_confounds(confounds_in, eventsdir)
     else:
         confoundsfile = cf_files['confoundsfile']
@@ -82,23 +99,36 @@ for TASK in ['stopsignal']:
     contrasts = utils.create_contrasts(TASK)
 
     # START PIPELINE
+    inputmask = Node(IdentityInterface(fields=['mask_file']), name='inputmask')
+    CNPflow = Workflow(name='cnp')
+    CNPflow.base_dir = taskdir
 
-    masker = Node(maths.ApplyMask(
-        in_file=cf_files['bold'],
-        out_file=cf_files['masked'],
-        mask_file=cf_files['mask']
-    ), name='masker')
 
-    bandpass = Node(afni.Bandpass(
-        highpass = 0.01,
-        lowpass = 1,
-        outputtype = "NIFTI_GZ"
-        ), name = 'afni_bandpass')
+    if args.prep_pipeline.startswith("fsl"):
+        masker = Node(ApplyWarp(
+            in_file = cf_files['bold'],
+            field_file=cf_files['warpfile'],
+            ref_file=cf_files['standard'],
+            out_file = cf_files['masked'],
+            mask_file = cf_files['standard_mask']
+        ), name = 'masker')
+        inputmask.inputs.mask_file = cf_files['standard_mask']
+    else:
+        masker = Node(Function(
+            function=_nilearnmask, output_names=['out_file', 'out_mask']),
+                      name='masker')
+        masker.inputs.in_file = cf_files['bold']
+        masker.inputs.mask_file = (
+            '/home/users/jdurnez/.cache/stanford-crn/'
+            'mni_icbm152_nlin_asym_09c/1mm_brainmask.nii.gz')
+        CNPflow.connect([
+            (masker, inputmask, [('out_mask', 'mask_file')]),
+        ])
+
 
     bim = Node(afni.BlurInMask(
-        mask=cf_files['mask'],
         out_file=cf_files['smoothed'],
-        fwhm=8.0
+        fwhm=5.0
     ), name='bim')
 
     l1 = Node(SpecifyModel(
@@ -121,10 +151,9 @@ for TASK in ['stopsignal']:
 
     l1estimate = Node(FEAT(), name='l1estimate')
 
-    CNPflow = Workflow(name='cnp')
-    CNPflow.base_dir = taskdir
-    CNPflow.connect([(masker, bandpass, [('out_file', 'in_file')]),
-                     (bandpass, bim, [('out_file', 'in_file')]),
+
+    CNPflow.connect([(inputmask, bim, [('mask_file', 'mask')]),
+                     (masker, bim, [('out_file', 'in_file')]),
                      (bim, l1, [('out_file', 'functional_runs')]),
                      (l1, l1model, [('session_info', 'session_info')]),
                      (l1model, l1featmodel, [
