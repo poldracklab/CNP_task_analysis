@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH --time=5:00:00
-#SBATCH --mem=4GB
+#SBATCH --mem=8GB
 #SBATCH -p hns,normal
 #SBATCH --output=logs/CNP.%a.txt
 #SBATCH --error=logs/CNP.%a.txt
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=joke.durnez@gmail.com
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=2
 #SBATCH --ntasks=1
 
 source $HOME/CNP_analysis/config.sh
