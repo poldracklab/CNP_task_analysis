@@ -1,5 +1,12 @@
-module load system
-module load singularity/2.3
+if [ $SHERLOCK = 2 ]
+    then
+        module load system
+        module load singularity/2.4
+    fi
+if [ $SHERLOCK = 1 ]
+    then
+        module load singularity
+    fi
 
 ## INPUT
 
