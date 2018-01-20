@@ -418,7 +418,7 @@ def check_exceptions(SUBJECT,TASK):
         gonogo = False
 
     # these subjects have functional scans, but not anatomical --> not preprocessed
-    subnoT1 = ['sub-10428','sub-10501','sub-70035','sub-70036','sub-11121','sub-10299','sub-10971','sub-11067']
+    subnoT1 = ['sub-10428','sub-10501','sub-70035','sub-70036','sub-11121','sub-10299','sub-10971']
     if SUBJECT in subnoT1:
         gonogo = False
 
