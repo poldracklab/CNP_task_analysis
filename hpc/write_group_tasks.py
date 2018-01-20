@@ -16,7 +16,7 @@ contrasts = [len(contrasts[x]) for x in tasks]
 
 firsts = []
 k = 0
-for experiment in range(50):
+for experiment in range(400):
     for idx,task in enumerate(tasks):
         for con in [10]:
             k+=1

@@ -1,178 +1,200 @@
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=1
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=2
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=3
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=4
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=5
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=6
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=7
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=8
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=9
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=10
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=12
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=13
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=14
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=15
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=16
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=1
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=2
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=3
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=4
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=5
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=6
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=7
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=8
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=9
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=10
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=11
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=12
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=13
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=14
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=15
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=16
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=17
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=18
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=19
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=20
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=21
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=22
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=23
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=24
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=25
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=26
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=27
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=28
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=29
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=30
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=31
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=32
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=33
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=34
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=35
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=36
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=37
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=38
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=39
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=40
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=41
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=42
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=43
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=44
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=45
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=46
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=47
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=taskswitch --contrast=48
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=1
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=2
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=3
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=4
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=5
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=6
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=7
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=8
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=9
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=10
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=11
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=12
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=13
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=14
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=15
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=16
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=17
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=18
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=19
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=20
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=21
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=22
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=23
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=bart --contrast=24
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=1
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=2
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=3
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=4
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=5
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=6
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=7
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=8
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=9
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=10
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=11
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=12
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=13
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=14
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=15
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=16
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=17
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=18
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=19
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=20
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=21
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=22
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=23
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=24
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=25
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=26
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=27
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=28
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=29
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=30
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=31
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=32
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=33
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=34
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=35
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=36
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=37
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=38
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=39
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=40
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=41
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=42
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=43
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=44
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=45
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=46
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=47
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=48
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=49
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=pamret --contrast=50
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=1
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=2
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=3
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=4
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=5
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=6
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=7
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=8
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=9
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=10
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=11
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=12
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=13
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=14
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=15
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=16
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=17
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=18
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=19
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=20
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=21
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=22
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=23
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=24
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=25
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=26
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=27
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=28
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=29
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=30
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=31
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=32
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=33
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=34
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=35
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=36
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=37
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=38
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=39
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=scap --contrast=40
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=0
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=1
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=2
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=3
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=4
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=5
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=6
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=7
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=8
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=9
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=10
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=11
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=12
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=13
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=14
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=15
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=16
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=17
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=18
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=19
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=20
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=21
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=22
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=23
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=24
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=25
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=26
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=27
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=28
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=29
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=30
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=31
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=32
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=33
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=34
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=35
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=36
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=37
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=38
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=39
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=40
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=41
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=42
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=43
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=44
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=45
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=46
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=47
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=48
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=49
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=50
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=51
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=52
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=53
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=54
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=55
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=56
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=57
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=58
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=59
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=60
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=61
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=62
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=63
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=64
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=65
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=66
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=67
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=68
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=69
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=70
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=71
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=72
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=73
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=74
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=75
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=76
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=77
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=78
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=79
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=80
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=81
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=82
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=83
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=84
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=85
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=86
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=87
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=88
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=89
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=90
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=91
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=92
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=93
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=94
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=95
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=96
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=97
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=98
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=99
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=100
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=101
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=102
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=103
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=104
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=105
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=106
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=107
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=108
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=109
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=110
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=111
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=112
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=113
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=114
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=115
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=116
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=117
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=118
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=119
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=120
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=121
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=122
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=123
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=124
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=125
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=126
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=127
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=128
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=129
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=130
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=131
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=132
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=133
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=134
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=135
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=136
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=137
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=138
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=139
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=140
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=141
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=142
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=143
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=144
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=145
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=146
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=147
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=148
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=149
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=150
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=151
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=152
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=153
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=154
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=155
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=156
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=157
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=158
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=159
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=160
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=161
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=162
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=163
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=164
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=165
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=166
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=167
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=168
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=169
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=170
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=171
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=172
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=173
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=174
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=175
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=176
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=177
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=178
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=179
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=180
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=181
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=182
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=183
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=184
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=185
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=186
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=187
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=188
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=189
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=190
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=191
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=192
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=193
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=194
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=195
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=196
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=197
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=198
+singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=stopsignal --contrast=11 --experiment=199

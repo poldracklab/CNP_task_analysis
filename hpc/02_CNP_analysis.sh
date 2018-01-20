@@ -2,6 +2,8 @@
 #SBATCH --time=5:00:00
 #SBATCH --mem=8GB
 #SBATCH -p hns,normal
+##SBATCH --qos=russpold
+##SBATCH -p russpold
 #SBATCH --output=logs/CNP.%a.txt
 #SBATCH --error=logs/CNP.%a.txt
 #SBATCH --mail-type=ALL

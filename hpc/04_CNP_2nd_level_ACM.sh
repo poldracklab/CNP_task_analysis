@@ -1,6 +1,8 @@
 #!/bin/bash
 #SBATCH --time=5:00:00
-#SBATCH --mem=64GB
+#SBATCH --mem=32GB
+#SBATCH --qos=russpold
+#SBATCH -p russpold
 #SBATCH --output=logs/CNP.ACM.txt
 #SBATCH --error=logs/CNP.ACM.txt
 #SBATCH --mail-type=ALL
