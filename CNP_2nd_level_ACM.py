@@ -32,8 +32,8 @@ acmtaskdir = os.path.join(acmdir,task)
 if not os.path.exists(acmtaskdir):
     os.mkdir(acmtaskdir)
 
-groupmaskfile = os.path.join(os.path.join(outdir,task),"mask.nii.gz")
-groupmask = nib.load(groupmaskfile).get_data()
+#groupmaskfile = os.path.join(os.path.join(outdir,task),"mask.nii.gz")
+#groupmask = nib.load(groupmaskfile).get_data()
 
 for contrast in range(len(contrasts[task])):
 
@@ -65,9 +65,9 @@ for contrast in range(len(contrasts[task])):
         ACM_neg[exceed[0],exceed[1],exceed[2],idx] = 1
 
     ACM_pos = np.mean(ACM_pos,axis=3)
-    ACM_pos = ACM_pos*groupmask
+#    ACM_pos = ACM_pos*groupmask
     ACM_neg = np.mean(ACM_neg,axis=3)
-    ACM_neg = ACM_neg*groupmask
+#    ACM_neg = ACM_neg*groupmask
 
     ACM_diff = ACM_pos-ACM_neg
 
