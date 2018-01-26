@@ -39,14 +39,11 @@ The data is assumed to be structured in [BIDS](bids.neuroimaging.io) format and 
 |                                   (called by 01_prepare.sh)
 +-- utils/
 |    +-- utils.py                   Functions used in first level analyses.
-|    +-- rename_copes.py            Script to rename and collect the tmaps for neurovault.
 |
 +-- CNP_analysis.py                 Program to run first level analysis on 1 subject.
 +-- CNP_2nd_level.py                Program to run group level analysis on 1 contrast
 |                                   (and 1 task).
 +-- CNP_2nd_level_ACM.py            Program to generate ACM's for all contrasts.
-+-- CNP_group_figures.py            Program to write figures used in the accompanying
-|                                   paper.
 +-- config.sh                       configuration file setting environment variables
 |                                   specifying the location of the data and code.
 +-- Dockerfile                      File to create docker container. Autobuild on docker
