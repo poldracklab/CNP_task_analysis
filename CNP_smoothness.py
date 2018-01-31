@@ -1,5 +1,6 @@
 from nipype.interfaces.fsl import SmoothEstimate
 from nipype.interfaces.afni import FWHMx
+import nibabel as nib
 
 from utils import utils, get_config
 from joblib import Parallel, delayed
@@ -14,13 +15,21 @@ basedir = os.path.join(os.environ.get("PREPBASEDIR"),"fmriprep_vs_feat")
 pipelines = ['fmriprep-1.0.3','fslfeat_5.0.9']
 
 # single subject smoothness
+def smoothafni(zstat,mask):
+    est = FWHMx()
+    est.inputs.in_file = zstat
+    est.inputs.mask = mask
+    est = est.run()
+    fwhm = np.mean(est.outputs.fwhm)
+    return est
 
 def smoothfsl(zstat,mask):
         est = SmoothEstimate()
         est.inputs.zstat_file = zstat
         est.inputs.mask_file = mask
         est = est.run()
-        return est.outputs.resels**(1/3.)
+        psize = nib.load(zstat).header.get_zooms()
+        return (est.outputs.resels*np.product(psize))**(1/3.)
 
 def get_smoothness(sub):
     res = []
@@ -47,7 +56,7 @@ def get_smoothness(sub):
 
 cf = get_config.get_folders('fslfeat_5.0.9')
 featdir = cf['resdir']
-
+#
 # results = Parallel(n_jobs = 16)(delayed(get_smoothness)(subject) for subject in os.listdir(featdir))
 # resflat = [x for sublist in results for x in sublist]
 # res = pd.DataFrame(resflat)
@@ -56,6 +65,8 @@ featdir = cf['resdir']
 # group analysis smoothness
 
 def get_smoothness_group(samplesize,basedir):
+    # if sub in ['sub-10329','sub-50073']:
+    #     return 0
     outlist = []
     for pipeline in ['fmriprep-1.0.3','fslfeat_5.0.9']:
         for experiment in range(1,100):
@@ -78,6 +89,7 @@ def get_smoothness_group(samplesize,basedir):
     return outlist
 
 groupresults = Parallel(n_jobs = 16)(delayed(get_smoothness_group)(samplesize,basedir) for samplesize in np.arange(10,101,5).tolist())
+groupresults = [x for x in groupresults if not x==0]
 resflat = [x for sublist in groupresults for x in sublist]
 res = pd.DataFrame(resflat)
 res.to_csv(os.path.join(basedir,"smoothness_group.csv"))
