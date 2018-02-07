@@ -32,7 +32,7 @@ parser = argparse.ArgumentParser(
     description='Perform analysis on CNP task data')
 parser.add_argument('-subject', '--subject', dest='subject',
                     help='subject label', required=True)
-parser.add_argument('-prep_pipeline','--prep_pipeline',dest='prep_pipeline',
+parser.add_argument('-prep_pipeline', '--prep_pipeline', dest='prep_pipeline',
                     help='preprocessing pipeline (fmriprep or feat)', required=True)
 args = parser.parse_args()
 
@@ -44,7 +44,7 @@ SUBJECT = args.subject
 cf = get_config.get_folders(args.prep_pipeline)
 
 for TASK in ['stopsignal']:
-    cf_files = get_config.get_files(args.prep_pipeline,SUBJECT,TASK)
+    cf_files = get_config.get_files(args.prep_pipeline, SUBJECT, TASK)
 
     bidssub = os.listdir(os.path.join(BIDSDIR, SUBJECT, 'func'))
     taskfiles = [x for x in bidssub if TASK in x]
@@ -97,24 +97,23 @@ for TASK in ['stopsignal']:
 
     if args.prep_pipeline.startswith("fsl"):
         masker = Node(ApplyWarp(
-            in_file = cf_files['bold'],
+            in_file=cf_files['bold'],
             field_file=cf_files['warpfile'],
             ref_file=cf_files['standard'],
-            out_file = cf_files['masked'],
-            mask_file = cf_files['standard_mask']
-        ), name = 'masker')
+            out_file=cf_files['masked'],
+            mask_file=cf_files['standard_mask']
+        ), name='masker')
         #inputmask.inputs.mask_file = cf_files['standard_mask']
     else:
         masker = Node(maths.ApplyMask(
             in_file=cf_files['bold'],
             out_file=cf_files['masked'],
             mask_file=cf_files['standard_mask']
-            ), name='masker')
-
+        ), name='masker')
 
     bim = Node(afni.BlurInMask(
         out_file=cf_files['smoothed'],
-        mask = cf_files['standard_mask'],
+        mask=cf_files['standard_mask'],
         fwhm=5.0
     ), name='bim')
 
