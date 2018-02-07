@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+First-level analysis of the CNP dataset
+"""
 
 import os
 import shutil
 import argparse
 import pandas as pd
+from warnings import warn
 from nipype.interfaces.fsl import FEATModel, FEAT, Level1Design, maths, ApplyWarp
 from nipype.pipeline.engine import Workflow, Node
 from nipype.algorithms.modelgen import SpecifyModel
@@ -28,30 +32,39 @@ from nipype.interfaces import afni
 #     nii = nii.__class__(data, nii.affine, nii.header).to_filename(out_file)
 #     return out_file, out_mask
 
-parser = argparse.ArgumentParser(
-    description='Perform analysis on CNP task data')
-parser.add_argument('-subject', '--subject', dest='subject',
-                    help='subject label', required=True)
-parser.add_argument('-prep_pipeline', '--prep_pipeline', dest='prep_pipeline',
-                    help='preprocessing pipeline (fmriprep or feat)', required=True)
-args = parser.parse_args()
+def get_parser():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('subject', action='store', help='subject label')
+    parser.add_argument('pipeline', dest='prep_pipeline', action='store',
+                        help='preprocessing pipeline (fmriprep or feat)')
+    parser.add_argument('--bids-dir', action='store', default=os.getenv('BIDSDIR'))
+    return parser
+
+
+args = get_parser().parse_args()
 
 # INPUT FILES AND FOLDERS
+BIDSDIR = args.bids_dir
+if BIDSDIR is None:
+    raise RuntimeError(
+        'No BIDS root directory was specified. Please provide it with '
+        'the --bids-dir argument or using the BIDSDIR env variable.')
 
-BIDSDIR = os.environ.get('BIDSDIR')
 SUBJECT = args.subject
 
 cf = get_config.get_folders(args.prep_pipeline)
 
-for TASK in ['stopsignal']:
-    cf_files = get_config.get_files(args.prep_pipeline, SUBJECT, TASK)
+for task_id in ['stopsignal']:
+    cf_files = get_config.get_files(args.prep_pipeline, SUBJECT, task_id)
 
     bidssub = os.listdir(os.path.join(BIDSDIR, SUBJECT, 'func'))
-    taskfiles = [x for x in bidssub if TASK in x]
+    taskfiles = [x for x in bidssub if task_id in x]
     if len(taskfiles) == 0:  # if no files for this task are present: skip task
+        warn('No task "%s" found for subject "%s". Skipping.' % (task_id, SUBJECT))
         continue
 
-    if utils.check_exceptions(SUBJECT, TASK) is False:
+    if not utils.check_exceptions(SUBJECT, task_id):
+        warn('Skipping subject "%s", task "%s".' % (SUBJECT, task_id))
         continue
 
     # CREATE OUTPUT DIRECTORIES
@@ -62,10 +75,12 @@ for TASK in ['stopsignal']:
     if not os.path.exists(subdir):
         os.mkdir(subdir)
 
-    if os.path.exists(os.path.join(subdir, '%s.feat' % TASK)):
+    if os.path.exists(os.path.join(subdir, '%s.feat' % task_id)):
+        warn('Folder "%s" exists, skipping.' %
+             os.path.join(subdir, '%s.feat' % task_id))
         continue
 
-    taskdir = os.path.join(cf['resdir'], SUBJECT, TASK)
+    taskdir = os.path.join(cf['resdir'], SUBJECT, task_id)
     if not os.path.exists(taskdir):
         os.mkdir(taskdir)
 
@@ -75,7 +90,7 @@ for TASK in ['stopsignal']:
 
     os.chdir(taskdir)
 
-    # GENERATE TASK REGRESSORS, CONTRASTS + CONFOUNDERS
+    # GENERATE task_id REGRESSORS, CONTRASTS + CONFOUNDERS
     if args.prep_pipeline.startswith('fmriprep'):
         confounds_infile = cf_files['confoundsfile']
         confounds_in = pd.read_csv(confounds_infile, sep="\t")
@@ -85,12 +100,12 @@ for TASK in ['stopsignal']:
         confoundsfile = cf_files['confoundsfile']
 
     eventsfile = os.path.join(BIDSDIR, SUBJECT, 'func',
-                              SUBJECT + "_task-" + TASK + '_events.tsv')
-    regressors = utils.create_ev_task(eventsfile, eventsdir, TASK)
+                              SUBJECT + "_task-" + task_id + '_events.tsv')
+    regressors = utils.create_ev_task(eventsfile, eventsdir, task_id)
     EVfiles = regressors['EVfiles']
     orthogonality = regressors['orthogonal']
 
-    contrasts = utils.create_contrasts(TASK)
+    contrasts = utils.create_contrasts(task_id)
 
     # START PIPELINE
     # inputmask = Node(IdentityInterface(fields=['mask_file']), name='inputmask')
@@ -103,7 +118,7 @@ for TASK in ['stopsignal']:
             out_file=cf_files['masked'],
             mask_file=cf_files['standard_mask']
         ), name='masker')
-        #inputmask.inputs.mask_file = cf_files['standard_mask']
+        # inputmask.inputs.mask_file = cf_files['standard_mask']
     else:
         masker = Node(maths.ApplyMask(
             in_file=cf_files['bold'],
@@ -153,5 +168,5 @@ for TASK in ['stopsignal']:
     featdir = os.path.join(taskdir, "cnp", 'l1estimate', 'run0.feat')
     utils.purge_feat(featdir)
 
-    shutil.move(featdir, os.path.join(subdir, '%s.feat' % TASK))
+    shutil.move(featdir, os.path.join(subdir, '%s.feat' % task_id))
     shutil.rmtree(taskdir)
