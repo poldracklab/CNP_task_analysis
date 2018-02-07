@@ -51,7 +51,7 @@ for TASK in ['stopsignal']:
     if len(taskfiles) == 0:  # if no files for this task are present: skip task
         continue
 
-    if utils.check_exceptions(SUBJECT, TASK) == False:
+    if utils.check_exceptions(SUBJECT, TASK) is False:
         continue
 
     # CREATE OUTPUT DIRECTORIES
