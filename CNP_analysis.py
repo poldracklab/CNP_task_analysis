@@ -100,7 +100,8 @@ for task_id in ['stopsignal']:
         confoundsfile = cf_files['confoundsfile']
 
     eventsfile = os.path.join(BIDSDIR, SUBJECT, 'func',
-                              SUBJECT + "_task-" + task_id + '_events.tsv')
+                              '%s_task-%s_events.tsv' % (SUBJECT, task_id))
+
     regressors = utils.create_ev_task(eventsfile, eventsdir, task_id)
     EVfiles = regressors['EVfiles']
     orthogonality = regressors['orthogonal']
