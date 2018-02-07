@@ -1,20 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from nipype.interfaces.fsl import model, FEATModel, FEAT, Level1Design, Smooth, maths, ApplyWarp
-from nipype.interfaces.utility import Function, IdentityInterface
-from nipype.pipeline.engine import Workflow, Node, MapNode
-from nipype.interfaces.io import SelectFiles, DataSink
+import os
+import shutil
+import argparse
+import pandas as pd
+from nipype.interfaces.fsl import FEATModel, FEAT, Level1Design, maths, ApplyWarp
+from nipype.pipeline.engine import Workflow, Node
 from nipype.algorithms.modelgen import SpecifyModel
 from utils import utils, get_config
 from nipype.interfaces import afni
-import nibabel as nib
-import pandas as pd
-import numpy as np
-import argparse
-import shutil
-import sys
-import os
 
 
 # def _nilearnmask(in_file, mask_file):
