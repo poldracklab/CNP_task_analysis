@@ -1,3 +1,7 @@
+"""
+Miscellaneous utilities used in first and second level analysis
+"""
+
 import pandas as pd
 import numpy as np
 import os
