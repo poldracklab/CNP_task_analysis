@@ -115,6 +115,10 @@ def create_ev_task(eventsfile, eventsdir, task='stopsignal'):
 
 
 def create_contrasts(task):
+    """
+    Create a contrasts list
+
+    """
 
     # Break early when things don't look alright
     if task != 'stopsignal':
@@ -144,9 +148,7 @@ def create_contrasts(task):
         repl_w_neg.append(con)
         repl_w_neg.append(new)
 
-    contrasts = repl_w_neg
-
-    return contrasts
+    return repl_w_neg
 
 
 def purge_feat(featdir):
