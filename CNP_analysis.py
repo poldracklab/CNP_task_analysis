@@ -155,13 +155,15 @@ for task_id in ['stopsignal']:
 
     CNPflow = Workflow(name='cnp')
     CNPflow.base_dir = taskdir
-    CNPflow.connect([(masker, bim, [('out_file', 'in_file')]),
-                     (bim, l1, [('out_file', 'functional_runs')]),
-                     (l1, l1model, [('session_info', 'session_info')]),
-                     (l1model, l1featmodel, [
-                      ('fsf_files', 'fsf_file'), ('ev_files', 'ev_files')]),
-                     (l1model, l1estimate, [('fsf_files', 'fsf_file')])
-                     ])
+    CNPflow.connect([
+        (masker, bim, [('out_file', 'in_file')]),
+        (bim, l1, [('out_file', 'functional_runs')]),
+        (l1, l1model, [('session_info', 'session_info')]),
+        (l1model, l1featmodel, [
+            ('fsf_files', 'fsf_file'),
+            ('ev_files', 'ev_files')]),
+        (l1model, l1estimate, [('fsf_files', 'fsf_file')])
+    ])
 
     CNPflow.write_graph(graph2use='colored')
     CNPflow.run('MultiProc', plugin_args={'n_procs': 4})
