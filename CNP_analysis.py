@@ -35,7 +35,7 @@ from nipype.interfaces import afni
 def get_parser():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('subject', action='store', help='subject label')
-    parser.add_argument('pipeline', dest='prep_pipeline', action='store',
+    parser.add_argument('prep_pipeline', action='store',
                         help='preprocessing pipeline (fmriprep or feat)')
     parser.add_argument('--bids-dir', action='store', default=os.getenv('BIDSDIR'))
     return parser

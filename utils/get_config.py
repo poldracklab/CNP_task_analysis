@@ -1,8 +1,9 @@
 import os
 
 
-def get_folders(prep_pipeline):
-    basedir = os.path.join(os.environ.get("PREPBASEDIR"), 'fmriprep_vs_feat_2.0-jd', prep_pipeline)
+def get_folders(prep_pipeline, level='l1'):
+    basedir = os.path.join(os.environ.get("PREPBASEDIR"), 'fmriprep_vs_feat_2.0-jd',
+                           level, prep_pipeline)
     if not os.path.exists(basedir):
         os.mkdir(basedir)
 
