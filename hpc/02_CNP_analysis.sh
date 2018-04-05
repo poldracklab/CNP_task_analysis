@@ -20,12 +20,9 @@ if [ ! -f $SINGULARITY ]; then
     echo "Singularity container for analyses not found!  Please first create singularity container."
 fi
 
-singularity exec $SINGULARITY echo "Analyis '${SLURM_ARRAY_TASK_ID}' started"
-
+singularity exec $SINGULARITY echo "Analysis '${SLURM_ARRAY_TASK_ID}' started"
 cd $HOMEDIR
-
 set -e
-
 eval $( sed "${SLURM_ARRAY_TASK_ID}q;d" $HOMEDIR/hpc/tasks.txt )
 
 echo "༼ つ ◕_◕ ༽つ CNP modeling pipeline finished"

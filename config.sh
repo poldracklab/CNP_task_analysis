@@ -19,4 +19,4 @@ export PREPBASEDIR=/oak/stanford/groups/russpold/data/ds000030/1.0.3/derivatives
 export HOMEDIR=$HOME/CNP_analysis/
 
 ## SINGULARITY CONTAINER
-export SINGULARITY=$SCRATCH/poldracklab_cnp_task_analysis-2017-06-13-8a9da76ec6c3.img
+export SINGULARITY=$SINGULARITY_BIN/poldracklab_cnp-2018-04-05-7fa7069182f3.img
