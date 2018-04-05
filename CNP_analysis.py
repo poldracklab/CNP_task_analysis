@@ -9,7 +9,7 @@ import shutil
 import argparse
 import pandas as pd
 from warnings import warn
-from nipype.interfaces.fsl import FEATModel, FEAT, Level1Design, maths, ApplyWarp
+from nipype.interfaces.fsl import FEATModel, FEAT, Level1Design, maths
 from nipype.pipeline.engine import Workflow, Node
 from nipype.algorithms.modelgen import SpecifyModel
 from utils import utils, get_config
@@ -91,13 +91,10 @@ for task_id in ['stopsignal']:
     os.chdir(taskdir)
 
     # GENERATE task_id REGRESSORS, CONTRASTS + CONFOUNDERS
-    if args.prep_pipeline.startswith('fmriprep'):
-        confounds_infile = cf_files['confoundsfile']
-        confounds_in = pd.read_csv(confounds_infile, sep="\t")
-        confounds_in = confounds_in[['X', 'Y', 'Z', 'RotX', 'RotY', 'RotZ']]
-        confoundsfile = utils.create_confounds(confounds_in, eventsdir)
-    else:
-        confoundsfile = cf_files['confoundsfile']
+    confounds_infile = cf_files['confoundsfile']
+    confounds_in = pd.read_csv(confounds_infile, sep="\t")
+    confounds_in = confounds_in[['X', 'Y', 'Z', 'RotX', 'RotY', 'RotZ']]
+    confoundsfile = utils.create_confounds(confounds_in, eventsdir)
 
     eventsfile = os.path.join(BIDSDIR, SUBJECT, 'func',
                               '%s_task-%s_events.tsv' % (SUBJECT, task_id))
@@ -110,22 +107,11 @@ for task_id in ['stopsignal']:
 
     # START PIPELINE
     # inputmask = Node(IdentityInterface(fields=['mask_file']), name='inputmask')
-
-    if args.prep_pipeline.startswith("fsl"):
-        masker = Node(ApplyWarp(
-            in_file=cf_files['bold'],
-            field_file=cf_files['warpfile'],
-            ref_file=cf_files['standard'],
-            out_file=cf_files['masked'],
-            mask_file=cf_files['standard_mask']
-        ), name='masker')
-        # inputmask.inputs.mask_file = cf_files['standard_mask']
-    else:
-        masker = Node(maths.ApplyMask(
-            in_file=cf_files['bold'],
-            out_file=cf_files['masked'],
-            mask_file=cf_files['standard_mask']
-        ), name='masker')
+    masker = Node(maths.ApplyMask(
+        in_file=cf_files['bold'],
+        out_file=cf_files['masked'],
+        mask_file=cf_files['standard_mask']
+    ), name='masker')
 
     bim = Node(afni.BlurInMask(
         out_file=cf_files['smoothed'],
