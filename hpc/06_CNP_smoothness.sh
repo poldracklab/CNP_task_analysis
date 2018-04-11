@@ -6,13 +6,15 @@
 #SBATCH --output=logs/CNP.collect.txt
 #SBATCH --error=logs/CNP.collect.txt
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=joke.durnez@gmail.com
+#SBATCH --mail-user=<email>
 #SBATCH --cpus-per-task=16
 #SBATCH --ntasks=1
 
-source $HOME/CNP_analysis/config.sh
-source /share/PI/russpold/software/setup_all.sh
+module load fsl/5.0.9 anaconda afni
 
-python $HOMEDIR/CNP_smoothness.py
+export BIDSDIR=/oak/stanford/groups/russpold/data/ds000030/1.0.3
+export PREPBASEDIR=$BIDSDIR/derivatives
+export HOMEDIR=$PWD/CNP_task_analysis
+python -s $HOMEDIR/CNP_smoothness.py
 
 echo "༼ つ ◕_◕ ༽つ CNP collecting results finished"
