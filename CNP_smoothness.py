@@ -12,7 +12,7 @@ from .utils import get_config
 
 basedir = os.path.join(os.environ.get("PREPBASEDIR"), "fmriprep_vs_feat")
 
-pipelines = ['fmriprep-1.0.3', 'fslfeat_5.0.9']
+pipelines = ['fmriprep_1.0.8', 'fslfeat_5.0.10']
 
 
 # single subject smoothness
@@ -58,7 +58,7 @@ def get_smoothness(sub):
     return res
 
 
-cf = get_config.get_folders('fslfeat_5.0.9')
+cf = get_config.get_folders('fslfeat_5.0.10')
 featdir = cf['resdir']
 
 
@@ -71,7 +71,7 @@ featdir = cf['resdir']
 # group analysis smoothness
 def get_smoothness_group(samplesize, basedir):
     outlist = []
-    for pipeline in ['fmriprep-1.0.3', 'fslfeat_5.0.9']:
+    for pipeline in ['fmriprep_1.0.8', 'fslfeat_5.0.10']:
         for experiment in range(1, 100):
             for sample in range(2):
                 outdir = os.path.join(basedir, pipeline,
