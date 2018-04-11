@@ -6,156 +6,187 @@ First-level analysis of the CNP dataset
 
 import os
 import shutil
-import argparse
-import pandas as pd
 from warnings import warn
 from nipype.interfaces.fsl import FEATModel, FEAT, Level1Design, maths
 from nipype.pipeline.engine import Workflow, Node
 from nipype.algorithms.modelgen import SpecifyModel
-from utils import utils, get_config
 from nipype.interfaces import afni
+from nipype.interfaces import utility as niu
+
+from utils.utils import create_contrasts, create_ev_task
 
 
-# def _nilearnmask(in_file, mask_file):
-#     import os
-#     import numpy as np
-#     import nibabel as nb
-#     from nipype.utils.filemanip import fname_presuffix
-#     from nilearn.image import resample_to_img
-#     out_file = fname_presuffix(in_file, '_brain', newpath=os.getcwd())
-#     out_mask = fname_presuffix(in_file, '_brainmask', newpath=os.getcwd())
-#     newmask = resample_to_img(mask_file, in_file,
-#                               interpolation='nearest')
-#     newmask.to_filename(out_mask)
-#     nii = nb.load(in_file)
-#     data = nii.get_data() * newmask.get_data()[..., np.newaxis]
-#     nii = nii.__class__(data, nii.affine, nii.header).to_filename(out_file)
-#     return out_file, out_mask
+GROUP_MASK = ('/oak/stanford/groups/russpold/data/'
+              'templates/mni_icbm152_nlin_asym_09c/2mm_brainmask.nii.gz')
+
 
 def get_parser():
+    import argparse
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('name', action='store',
+                        help='pipeline name')
     parser.add_argument('subject', action='store', help='subject label')
-    parser.add_argument('prep_pipeline', action='store',
-                        help='preprocessing pipeline (fmriprep or feat)')
-    parser.add_argument('--bids-dir', action='store', default=os.getenv('BIDSDIR'))
+    parser.add_argument('-t', '--tasks', nargs='+', type=str, action='store',
+                        help='list of tasks to be processed')
+    parser.add_argument('-B', '--bids-dir', action='store', default=os.getenv('BIDSDIR'))
+    parser.add_argument('-D', '--deriv-dir', action='store',
+                        default=os.environ.get('PREPBASEDIR'),
+                        help='path to a BIDS-Derivatives folder with '
+                             'preprocessed data')
+    parser.add_argument('-R', '--results-dir', action='store',
+                        default=os.environ.get('PREPBASEDIR'),
+                        help='path to a BIDS-Derivatives folder '
+                             'where results will be stored')
+    parser.add_argument('-w', '--work-dir', action='store',
+                        default=os.path.join(os.getcwd(), 'work'),
+                        help='work directory')
+    parser.add_argument('--variant', action='store',
+                        help='preprocessing workflow name')
     return parser
 
 
-args = get_parser().parse_args()
+def _confounds2movpar(in_confounds):
+    from os.path import abspath
+    import numpy as np
+    import pandas as pd
+    dataframe = pd.read_csv(
+        in_confounds,
+        sep='\t',
+        usecols=['X', 'Y', 'Z', 'RotX', 'RotY', 'RotZ']).fillna(value=0)
 
-# INPUT FILES AND FOLDERS
-BIDSDIR = args.bids_dir
-if BIDSDIR is None:
-    raise RuntimeError(
-        'No BIDS root directory was specified. Please provide it with '
-        'the --bids-dir argument or using the BIDSDIR env variable.')
+    out_name = abspath('motion.par')
+    np.savetxt(out_name, dataframe.values, '%5.3f')
+    return out_name
 
-SUBJECT = args.subject
 
-cf = get_config.get_folders(args.prep_pipeline)
+def main():
+    args = get_parser().parse_args()
 
-for task_id in ['stopsignal']:
-    cf_files = get_config.get_files(args.prep_pipeline, SUBJECT, task_id)
+    # INPUT FILES AND FOLDERS
+    bids_dir = args.bids_dir
+    if bids_dir is None:
+        raise RuntimeError(
+            'No BIDS root directory was specified. Please provide it with '
+            'the --bids-dir argument or using the BIDSDIR env variable.')
 
-    bidssub = os.listdir(os.path.join(BIDSDIR, SUBJECT, 'func'))
-    taskfiles = [x for x in bidssub if task_id in x]
-    if len(taskfiles) == 0:  # if no files for this task are present: skip task
-        warn('No task "%s" found for subject "%s". Skipping.' % (task_id, SUBJECT))
-        continue
+    deriv_dir = args.deriv_dir
+    if deriv_dir is None:
+        raise RuntimeError(
+            'No BIDS-Derivatives folder with pre-processed inputs was '
+            'specified. Please provide it with the --deriv-dir argument '
+            'or using the PREPBASEDIR environment variable.')
 
-    if not utils.check_exceptions(SUBJECT, task_id):
-        warn('Skipping subject "%s", task "%s".' % (SUBJECT, task_id))
-        continue
+    if not args.tasks:
+        raise RuntimeError(
+            'No tasks were provided. Please indicate a task with the '
+            '--tasks argument.')
 
-    # CREATE OUTPUT DIRECTORIES
-    if not os.path.exists(cf['resdir']):
-        os.mkdir(cf['resdir'])
+    variant = args.variant
+    if variant is None:
+        variant = 'fmriprep' if 'fmriprep' in os.path.basename(deriv_dir) \
+            else 'fslfeat'
 
-    subdir = os.path.join(cf['resdir'], SUBJECT)
-    if not os.path.exists(subdir):
-        os.mkdir(subdir)
+    res_dir = os.path.abspath(os.path.join(args.results_dir, variant))
+    if not os.path.exists(res_dir):
+        os.makedirs(res_dir)
 
-    if os.path.exists(os.path.join(subdir, '%s.feat' % task_id)):
-        warn('Folder "%s" exists, skipping.' %
-             os.path.join(subdir, '%s.feat' % task_id))
-        continue
+    work_dir = args.work_dir
+    if not os.path.exists(work_dir):
+        os.makedirs(work_dir)
 
-    taskdir = os.path.join(cf['resdir'], SUBJECT, task_id)
-    if not os.path.exists(taskdir):
-        os.mkdir(taskdir)
+    # Set subject name
+    subject = args.subject if args.subject.startswith('sub-') \
+        else 'sub-%s' % args.subject
 
-    eventsdir = os.path.join(taskdir, 'events')
-    if not os.path.exists(eventsdir):
-        os.mkdir(eventsdir)
+    fmt = '{subject}_task-{task_id}_{suffix}'.format
 
-    os.chdir(taskdir)
+    print('Building workflow for tasks: %s.' % ', '.join(args.tasks))
+    for task_id in args.tasks:
+        prep_file = os.path.join(
+            deriv_dir, subject, 'func', fmt(
+                subject=subject, task_id=task_id,
+                suffix='bold_space-MNI152NLin2009cAsym_preproc.nii.gz')
+        )
 
-    # GENERATE task_id REGRESSORS, CONTRASTS + CONFOUNDERS
-    confounds_infile = cf_files['confoundsfile']
-    confounds_in = pd.read_csv(confounds_infile, sep="\t")
-    confounds_in = confounds_in[['X', 'Y', 'Z', 'RotX', 'RotY', 'RotZ']]
-    confoundsfile = utils.create_confounds(confounds_in, eventsdir)
+        if not os.path.isfile(prep_file):
+            warn('Preprocessed file not found: %s' % prep_file)
+            continue
 
-    eventsfile = os.path.join(BIDSDIR, SUBJECT, 'func',
-                              '%s_task-%s_events.tsv' % (SUBJECT, task_id))
+        # START PIPELINE
+        # inputmask = Node(IdentityInterface(fields=['mask_file']), name='inputmask')
+        conf2movpar = Node(niu.Function(function=_confounds2movpar),
+                           name='conf2movpar')
+        conf2movpar.inputs.in_confounds = os.path.join(
+            deriv_dir, subject, 'func', fmt(
+                subject=subject, task_id=task_id,
+                suffix='bold_confounds.tsv')
+        )
 
-    regressors = utils.create_ev_task(eventsfile, eventsdir, task_id)
-    EVfiles = regressors['EVfiles']
-    orthogonality = regressors['orthogonal']
+        regressors = Node(niu.Function(
+            function=create_ev_task,
+            output_names=['ev_files', 'ortho']), name='regressors')
+        regressors.inputs.eventsfile = os.path.join(
+            bids_dir, subject, 'func', fmt(
+                subject=subject, task_id=task_id,
+                suffix='events.tsv'))
+        regressors.inputs.task_id = task_id
 
-    contrasts = utils.create_contrasts(task_id)
+        contrasts = Node(niu.Function(function=create_contrasts), name='contrasts')
+        contrasts.inputs.task = task_id
 
-    # START PIPELINE
-    # inputmask = Node(IdentityInterface(fields=['mask_file']), name='inputmask')
-    masker = Node(maths.ApplyMask(
-        in_file=cf_files['bold'],
-        out_file=cf_files['masked'],
-        mask_file=cf_files['standard_mask']
-    ), name='masker')
+        masker = Node(maths.ApplyMask(
+            in_file=prep_file, mask_file=GROUP_MASK), name='masker')
 
-    bim = Node(afni.BlurInMask(
-        out_file=cf_files['smoothed'],
-        mask=cf_files['standard_mask'],
-        fwhm=5.0
-    ), name='bim')
+        bim = Node(afni.BlurInMask(
+            mask=GROUP_MASK, outputtype='NIFTI_GZ', fwhm=5.0), name='bim')
 
-    l1 = Node(SpecifyModel(
-        event_files=EVfiles,
-        realignment_parameters=confoundsfile,
-        input_units='secs',
-        time_repetition=2,
-        high_pass_filter_cutoff=100
-    ), name='l1')
+        l1 = Node(SpecifyModel(
+            input_units='secs',
+            time_repetition=2,
+            high_pass_filter_cutoff=100
+        ), name='l1')
 
-    l1model = Node(Level1Design(
-        interscan_interval=2,
-        bases={'dgamma': {'derivs': True}},
-        model_serial_correlations=True,
-        orthogonalization=orthogonality,
-        contrasts=contrasts
-    ), name='l1design')
+        l1model = Node(Level1Design(
+            interscan_interval=2,
+            bases={'dgamma': {'derivs': True}},
+            model_serial_correlations=True,
+        ), name='l1design')
 
-    l1featmodel = Node(FEATModel(), name='l1model')
+        l1featmodel = Node(FEATModel(), name='l1model')
 
-    l1estimate = Node(FEAT(), name='l1estimate')
+        l1estimate = Node(FEAT(), name='l1estimate')
 
-    CNPflow = Workflow(name='cnp')
-    CNPflow.base_dir = taskdir
-    CNPflow.connect([
-        (masker, bim, [('out_file', 'in_file')]),
-        (bim, l1, [('out_file', 'functional_runs')]),
-        (l1, l1model, [('session_info', 'session_info')]),
-        (l1model, l1featmodel, [
-            ('fsf_files', 'fsf_file'),
-            ('ev_files', 'ev_files')]),
-        (l1model, l1estimate, [('fsf_files', 'fsf_file')])
-    ])
+        wfname = '_'.join(('l1', variant, subject[4:]))
+        CNPflow = Workflow(name=wfname)
+        CNPflow.base_dir = work_dir
+        CNPflow.connect([
+            (masker, bim, [('out_file', 'in_file')]),
+            (bim, l1, [('out_file', 'functional_runs')]),
+            (conf2movpar, l1, [('out', 'realignment_parameters')]),
+            (regressors, l1, [('ev_files', 'event_files')]),
+            (regressors, l1model, [('ortho', 'orthogonalization')]),
+            (contrasts, l1model, [('out', 'contrasts')]),
+            (l1, l1model, [('session_info', 'session_info')]),
+            (l1model, l1featmodel, [
+                ('fsf_files', 'fsf_file'),
+                ('ev_files', 'ev_files')]),
+            (l1model, l1estimate, [('fsf_files', 'fsf_file')])
+        ])
 
-    CNPflow.write_graph(graph2use='colored')
-    CNPflow.run('MultiProc', plugin_args={'n_procs': 4})
+        CNPflow.write_graph(graph2use='colored')
+        CNPflow.run('MultiProc')
 
-    featdir = os.path.join(taskdir, "cnp", 'l1estimate', 'run0.feat')
-    utils.purge_feat(featdir)
+        sub_dir = os.path.join(res_dir, '_'.join(
+            (subject, 'task-%s' % task_id)))
 
-    shutil.move(featdir, os.path.join(subdir, '%s.feat' % task_id))
-    shutil.rmtree(taskdir)
+        if os.path.exists(sub_dir):
+            shutil.rmtree(sub_dir)
+        featdir = os.path.join(work_dir, wfname, 'l1estimate', 'run0.feat')
+        shutil.copytree(featdir, os.path.join(sub_dir))
+        return 0
+
+
+if __name__ == '__main__':
+    import sys
+    code = main()
+    sys.exit(code)

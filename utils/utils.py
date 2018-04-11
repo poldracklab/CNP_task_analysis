@@ -2,71 +2,50 @@
 Miscellaneous utilities used in first and second level analysis
 """
 
-import pandas as pd
-import numpy as np
-import os
-import shutil
 
-
-def create_confounds(confounds_in, eventsdir, value=0.0):
-    """
-    Clears out n/a entries in the BIDS-derivatives confounds file
-    and stores it in a format compatible with FSL feat.
-
-
-    Args:
-        confounds_in: path to a bids-derivatives confounds file
-        eventsdir: path to the events directory of FSL feat
-        value: replacement of n/a entries in ``confounds_in``.
-
-    Returns:
-        A string pointing to the new confounds file
-
-    """
-    confounds = np.array(confounds_in)
-    confounds[confounds == 'n/a'] = value
-    confounds = confounds.astype(float)
-    confoundsfile = os.path.join(eventsdir, 'bold_confounds.tsv')
-    np.savetxt(confoundsfile, np.array(confounds), '%5.3f')
-    return confoundsfile
-
-
-def create_ev(dataframe, out_dir, out_name, duration=1, amplitude=1):
-    """
-    Adapt a BIDS-compliant events file to a format compatible with FSL feat
-
-    Args:
-        dataframe: events file from BIDS spec
-        out_dir: path where new events file will be stored
-        out_name: filename for the new events file
-        amplitude: value or variable name
-        duration: value or variable name
-
-    Returns:
-        Full path to the new events file
-
-    """
-    dataframe = dataframe[dataframe.onset.notnull()]
-    onsets = [round(float(x), ndigits=3) for x in dataframe.onset.tolist()]
-    if isinstance(duration, float) or isinstance(duration, int):
-        dur = [duration] * len(onsets)
-    elif isinstance(duration, str):
-        dur = [round(float(x), ndigits=3) for x in dataframe[duration].tolist()]
-    if isinstance(amplitude, float) or isinstance(amplitude, int):
-        weights = [amplitude] * len(onsets)
-    elif isinstance(amplitude, str):
-        weights = dataframe[amplitude] - np.mean(dataframe[amplitude])
-        weights = [round(float(x), ndigits=3) for x in weights.tolist()]
-    EV = pd.DataFrame({"0": onsets, "1": dur, "2": weights})
-    EVfile = os.path.join(out_dir, '%s.txt' % out_name)
-    EV.to_csv(EVfile, sep="\t", header=False, index=False)
-    return EVfile
-
-
-def create_ev_task(eventsfile, eventsdir, task='stopsignal'):
+def create_ev_task(eventsfile, task='stopsignal'):
     """
     Create events file for the stopsignal task
     """
+    import os
+    import pandas as pd
+
+    def create_ev(dataframe, out_dir, out_name, duration=1, amplitude=1):
+        """
+        Adapt a BIDS-compliant events file to a format compatible with FSL feat
+
+        Args:
+            dataframe: events file from BIDS spec
+            out_dir: path where new events file will be stored
+            out_name: filename for the new events file
+            amplitude: value or variable name
+            duration: value or variable name
+
+        Returns:
+            Full path to the new events file
+
+        """
+        import os
+        import pandas as pd
+        import numpy as np
+
+        dataframe = dataframe[dataframe.onset.notnull()]
+        onsets = [round(float(x), ndigits=3) for x in dataframe.onset.tolist()]
+        if isinstance(duration, float) or isinstance(duration, int):
+            dur = [duration] * len(onsets)
+        elif isinstance(duration, str):
+            dur = [round(float(x), ndigits=3) for x in dataframe[duration].tolist()]
+        if isinstance(amplitude, float) or isinstance(amplitude, int):
+            weights = [amplitude] * len(onsets)
+        elif isinstance(amplitude, str):
+            weights = dataframe[amplitude] - np.mean(dataframe[amplitude])
+            weights = [round(float(x), ndigits=3) for x in weights.tolist()]
+        EV = pd.DataFrame({"0": onsets, "1": dur, "2": weights})
+        EVfile = os.path.join(out_dir, '%s.txt' % out_name)
+        EV.to_csv(EVfile, sep="\t", header=False, index=False)
+        return EVfile
+
+    eventsdir = os.getcwd()
 
     # Break early when things don't look alright
     if task != 'stopsignal':
@@ -111,7 +90,7 @@ def create_ev_task(eventsfile, eventsdir, task='stopsignal'):
 
     EVfiles = [x for x in EVfiles if os.path.getsize(x) > 0]
 
-    return {"EVfiles": EVfiles, "orthogonal": ortho}
+    return EVfiles, ortho
 
 
 def create_contrasts(task):
@@ -152,6 +131,9 @@ def create_contrasts(task):
 
 
 def purge_feat(featdir):
+    import os
+    import shutil
+
     # remove from main feat: cluster results
     content = os.listdir(featdir)
     content = [os.path.join(featdir, x) for x in content]
