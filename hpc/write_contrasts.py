@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import numpy as np
 import json
 import sys
@@ -8,7 +9,7 @@ sys.path.append(os.path.join(os.environ.get('HOMEDIR')))
 from utils import utils
 
 results = {}
-for task in ['stopsignal', 'taskswitch', 'scap', 'bart', 'pamret']:
+for task in ['stopsignal']:
     contrasts = utils.create_contrasts(task)
     results[task] = [x[0] for x in contrasts]
 

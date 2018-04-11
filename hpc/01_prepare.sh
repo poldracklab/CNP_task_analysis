@@ -3,22 +3,26 @@
 #SBATCH --mem=4GB
 ##SBATCH --qos=russpold
 ##SBATCH -p russpold
-#SBATCH --output=logs/CNP.preparation.txt
-#SBATCH --error=logs/CNP.preparation.txt
+#SBATCH --output=$HOME/logs/CNP-prepararion.%J.out
+#SBATCH --error=$HOME/logs/CNP-preparation.%J.err
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=joke.durnez@gmail.com
+#SBATCH --mail-user=<email>
 #SBATCH --cpus-per-task=1
 #SBATCH --ntasks=1
 
-source $HOME/CNP_analysis/config.sh
+module load system
+module load singularity
 
+export BIDSDIR=/oak/stanford/groups/russpold/data/ds000030/1.0.3
+export PREPBASEDIR=$BIDSDIR/derivatives
+export HOMEDIR=$PWD/CNP_task_analysis
 unset PYTHONPATH
 
 set -e
 
-singularity exec -B $OAK:$OAK $SINGULARITY echo "Analyis started"
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/hpc/write_contrasts.py
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/hpc/write_group_tasks.py
-singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/hpc/write_tasks.py
+echo "Analysis started"
+singularity exec $SINGULARITY python -s $HOMEDIR/hpc/write_contrasts.py
+singularity exec $SINGULARITY python -s $HOMEDIR/hpc/write_group_tasks.py
+singularity exec $SINGULARITY python -s $HOMEDIR/hpc/write_tasks.py
 
 echo "༼ つ ◕_◕ ༽つ CNP pipeline preparation finished"

@@ -9,8 +9,8 @@ if os.path.exists(jobsfile):
 
 subjects = [x for x in os.listdir(bids) if 'sub-' in x]
 
-for prep_pipeline in ['fmriprep-1.0.3','fslfeat_5.0.9']:
+for prep_pipeline in ['fmriprep_1.0.8','fslfeat_5.0.10']:
     for subject in subjects:
-        cmd = "singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_analysis.py --subject=%s --prep_pipeline=%s"%(subject,prep_pipeline)
+        cmd = "singularity exec  $SINGULARITY python -s $HOMEDIR/CNP_analysis.py --subject=%s --prep_pipeline=%s"%(subject,prep_pipeline)
         with open(jobsfile,'a') as f:
             f.write(cmd+"\n")

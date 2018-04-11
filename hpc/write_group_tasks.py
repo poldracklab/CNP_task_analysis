@@ -20,6 +20,6 @@ for experiment in range(400):
     for idx,task in enumerate(tasks):
         for con in [10]:
             k+=1
-            cmd = "singularity exec -B $OAK:$OAK $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=%s --contrast=%i --experiment=%i"%(task,con+1,experiment)
+            cmd = "singularity exec  $SINGULARITY python -s $HOMEDIR/CNP_2nd_level.py --task=%s --contrast=%i --experiment=%i"%(task,con+1,experiment)
             with open(jobsfile,'a') as f:
                 f.write(cmd+"\n")
