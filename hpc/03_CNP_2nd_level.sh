@@ -1,30 +1,28 @@
 #!/bin/bash
-#SBATCH --time=10:00:00
+#SBATCH --array=1-200
+#SBATCH -t 10:00:00
 #SBATCH --mem=4G
-##SBATCH --qos=russpold
-##SBATCH -p russpold,hns,normal
-#SBATCH -p hns,normal
-#SBATCH --output=logs/CNP.group.%a.txt
-#SBATCH --error=logs/CNP.group.%a.txt
+#SBATCH -p russpold,owners,normal,hns
+#SBATCH --output=logs/CNP-group-%A.%a.out
+#SBATCH --error=logs/CNP-group-%A.%a.err
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=joke.durnez@gmail.com
+#SBATCH --mail-user=<email>
 #SBATCH --cpus-per-task=1
 
-source $HOME/CNP_analysis/config.sh
-#module load singularity
+module load system
+module load singularity
 
+# source $HOME/CNP_task_analysis/config.sh
+export BIDSDIR=/oak/stanford/groups/russpold/data/ds000030/1.0.3
+export PREPBASEDIR=$BIDSDIR/derivatives
+export HOMEDIR=$PWD/CNP_task_analysis
 unset PYTHONPATH
 
-if [ ! -f $SINGULARITY ]; then
-    echo "Singularity container for analyses not found!  Please first create singularity container."
-fi
+cmd=$( sed "${SLURM_ARRAY_TASK_ID}q;d" group_tasks.txt )
 
-singularity exec $SINGULARITY echo "Analyis '${SLURM_ARRAY_TASK_ID}' started"
+echo "Analysis ${SLURM_ARRAY_TASK_ID} started"
+echo "Running: $cmd"
+eval $cmd
 
-cd $HOMEDIR
+echo "༼ つ ◕_◕ ༽つ CNP 2nd level pipeline (task ${SLURM_ARRAY_TASK_ID}) finished"
 
-set -e
-
-eval $( sed "${SLURM_ARRAY_TASK_ID}q;d" $HOMEDIR/hpc/group_tasks.txt )
-
-echo "༼ つ ◕_◕ ༽つ CNP modeling pipeline finished"
