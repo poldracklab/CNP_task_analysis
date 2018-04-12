@@ -174,7 +174,7 @@ def main():
                          pipe, task, samplesize, experiment, gid)).format
 
                 # create workflow
-                CNPgroup = Workflow(name='_'.join(('cnp', expname)))
+                CNPgroup = Workflow(name='_'.join(('l2', expname)))
                 CNPgroup.base_dir = args.work_dir
                 CNPgroup.connect([
                     (copemerge, OLS, [('merged_file', 'cope_file')]),

@@ -3,7 +3,6 @@
 from __future__ import division, absolute_import
 
 import os
-import sys
 import glob
 import numpy as np
 import json
@@ -15,6 +14,7 @@ from nipype.algorithms.metrics import FuzzyOverlap
 
 GROUP_MASK = ('/oak/stanford/groups/russpold/data/templates/'
               'mni_icbm152_nlin_asym_09c/2mm_brainmask.nii.gz')
+
 
 # Overlap measures
 def dice(im1, im2, in_mask=None):
@@ -54,7 +54,7 @@ def create_atlas():
         HO, GROUP_MASK, interpolation='nearest').get_data().astype(np.uint8)
 
     atlas_data = np.zeros_like(ho_2mm, dtype=np.uint8)
-    atlas_data[stn_05_2mm > 1] = 1
+    atlas_data[stn_05_2mm > 0] = 1
     atlas_data[ho_2mm == 26] = 2
     atlas_data[ho_2mm == 5] = 3
     atlas_data[ho_2mm == 7] = 4
@@ -74,7 +74,7 @@ def main():
 
     # Pattern: l2-jd/fslfeat_stopsignal_N120_R100_S0
     basedir = os.path.join(os.environ.get("PREPBASEDIR"), "fmriprep_vs_feat_2.0-jd", 'l2-jd')
-    l1results = [os.path.basename(f)[:-1] 
+    l1results = [os.path.basename(f)[:-1]
                  for f in sorted(glob.glob(os.path.join(basedir, '*_S0')))]
     allT = {
         'fmriprep': {},
@@ -116,12 +116,11 @@ def main():
 
         pval_names = [os.path.join(s, 'zstat1_pval.nii.gz')
                       for s in [s1, s2]]
-        pvals = [nb.load(f).get_data() for f in pval_names]
 
         # compute fuzzy dice
         csvrow["fdice"] = dice(*pval_names)
         csvrow["fdice_masked"] = dice(*pval_names, in_mask=GROUP_MASK)
-        
+
         binmap = [os.path.join(s, 'zstat1_thresh.nii.gz') for s in [s1, s2]]
 
         # compute dice
