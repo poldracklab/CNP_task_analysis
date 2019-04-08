@@ -1,13 +1,15 @@
 import os
 
+
 def get_folders(prep_pipeline, bids_dir=None):
     if bids_dir is None:
         bids_dir = os.environ.get('BIDSDIR')
 
-    derivdir = os.environ.get("PREPBASEDIR", 
+    derivdir = os.environ.get("PREPBASEDIR",
                               os.path.join(bids_dir, 'derivatives'))
     basedir = os.path.join(derivdir, 'fmriprep_vs_feat_2.0-jd',
                            prep_pipeline)
+
     if not os.path.exists(basedir):
         os.makedirs(basedir)
 
@@ -53,4 +55,3 @@ def get_files(prep_pipeline, sub_id, task_id):
                           'templates/mni_icbm152_nlin_asym_09c/2mm_brainmask.nii.gz'),
     }
     return cf
-
